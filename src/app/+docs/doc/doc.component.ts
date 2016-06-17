@@ -96,7 +96,14 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
     let that = this;
     gapi.drive.realtime.load(id, (doc) => {
       that.onFileLoaded(doc);
-    }, that.initializeModel, () => { that.onError(id); } );
+    }, that.initializeModel, (e) => {
+      if(e.isFatal) {
+        console.log("Redirect to the login...");
+      } else {
+        that.onError(id);
+      }
+
+    });
   }
 
   onError(id) {
