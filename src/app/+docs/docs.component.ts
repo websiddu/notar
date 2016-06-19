@@ -72,6 +72,6 @@ export class DocsComponent implements OnInit, OnDestroy {
           this.isFirstTime = true;
         }
       });
-    }, 1000);
+    }, 100);
   }
 }
