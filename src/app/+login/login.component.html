@@ -1,0 +1,8 @@
+<button *ngIf="!auth.isSignedIn" (click)="login()">Create User</button>
+<span *ngIf="auth.isSignedIn">Signed In</span>
+
+<button (click)="givepermissions()">Give permissions</button>
+
+<button (click)="createdoc()">Create Doc</button>
+
+<button (click)="logout()">Logout</button>
