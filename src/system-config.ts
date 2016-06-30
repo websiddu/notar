@@ -38,6 +38,7 @@ const barrels: string[] = [
   'app/login',
   'app/+doc',
   'app/+login',
+  'app/shared/docframe',
   /** @cli-barrel */
 ];
 

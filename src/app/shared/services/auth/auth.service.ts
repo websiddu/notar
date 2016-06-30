@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 const CLIENT_ID = '155734877039-ftadpu31p6i79iied572licad72ji4bt.apps.googleusercontent.com';
 const SCOPES = ['https://www.googleapis.com/auth/drive'];
@@ -19,25 +20,31 @@ export class AuthService {
   
   auth2: any;
   currentUser: any; 
-  isSignedIn: Boolean; 
+  isSignedIn: boolean = false; 
 
   constructor() {
-    gapi.load('auth2', () => this.checkAuth());
-    this.isSignedIn = false;  
+    
+    // this.checkAuth(); 
   }
 
   checkAuth() {
-    this.auth2 = gapi.auth2.init(AUTH_PROPERTIES);
-
-    this.auth2.then(()=> {
-      let currentUser = gapi.auth2.getAuthInstance().currentUser.get();
-      if(currentUser.isSignedIn()) {
-        this.isSignedIn = true;
-        this.currentUser = currentUser; 
-      }
-    }, ()=> {
-      console.log("Can not Login!"); 
-    })
+     let authObserver = Observable.create((observer) => {
+        gapi.load('auth2', () => {
+          this.auth2 = gapi.auth2.init(AUTH_PROPERTIES); 
+          this.auth2.then(()=> {
+            let currentUser = gapi.auth2.getAuthInstance().currentUser.get();
+            if(currentUser.isSignedIn()) {
+              this.isSignedIn = true;
+              this.currentUser = currentUser;
+              observer.next(true); 
+              observer.complete();  
+            }
+          }, ()=> {
+            console.log("Can not Login!"); 
+          });
+        }); 
+     }); 
+    return authObserver; 
   }
   
   doAuth() {

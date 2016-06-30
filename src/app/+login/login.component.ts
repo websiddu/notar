@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth/auth.service'; 
 
@@ -14,8 +15,11 @@ import { AuthService } from '../shared/services/auth/auth.service';
 
 export class LoginComponent implements OnInit {
 
-  constructor(public af: AngularFire, private auth: AuthService) {
-  
+  isSignedIn: boolean = false;
+  currentUser: any;
+
+  constructor(public af: AngularFire, private auth: AuthService, public router: Router) {    
+    
   }
 
   login() {
@@ -28,7 +32,13 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit() {
-
+    this.auth.checkAuth().subscribe((e) => {
+      if (this.auth.isSignedIn) {
+        // Todo: capture where the user was going and nav there.
+        // Meanwhile redirect the user to the crisis admin
+        this.router.navigate(['/doc']);
+      }
+    })
   }
 
 }

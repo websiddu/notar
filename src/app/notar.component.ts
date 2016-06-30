@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+// import { Routes , ROUTER_DIRECTIVES} from '@angular/router';
 import { DocComponent } from './+doc';
-import { Routes , ROUTER_DIRECTIVES} from '@angular/router';
 import { LoginComponent } from './+login';
+
+import { ROUTER_DIRECTIVES }  from '@angular/router';
 
 const CLIENT_ID = '155734877039-ftadpu31p6i79iied572licad72ji4bt.apps.googleusercontent.com';
 const SCOPES = ['https://www.googleapis.com/auth/drive'];
@@ -12,12 +14,16 @@ declare var gapi: any;
   selector: 'notar-app',
   templateUrl: 'notar.component.html',
   styleUrls: ['notar.component.css'], 
-  directives: [LoginComponent]
+  directives: [LoginComponent, DocComponent, ROUTER_DIRECTIVES],
+
 })
-@Routes([
-  {path: '/doc', component: DocComponent},
-  {path: '/login', component: LoginComponent}
-])
+
+// @Routes([
+//   {path: '/', component: LoginComponent},
+//   {path: '/login', component: LoginComponent},
+//   {path: '/doc', component: DocComponent},
+//   {path: '/login', component: LoginComponent}
+// ])
 
 export class NotarAppComponent {
   title = 'notar works!';

@@ -1,3 +1,14 @@
-<p>
-  doc works!
-</p>
+<div class="container">
+    <aside class="side">
+        <button (click)="createDoc()">Create Doc</button>
+        <ul>
+            list of all files
+        </ul>
+    </aside>
+    <main class="main">
+        <div *ngIf="docUrl">
+            <iframe width="100%" height="100%" [src]="docUrl" frameborder="0" allowfullscreen></iframe>
+            <!--<app-docframe [embedUrl]="docUrl"></app-docframe>-->
+        </div>
+    </main>
+</div>
