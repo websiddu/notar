@@ -14,9 +14,14 @@ import {DomSanitizationService, SafeResourceUrl} from '@angular/platform-browser
 export class DocComponent implements OnInit {
   
   public docUrl: any; 
-
+  public files: any; 
 
   constructor(private sanitationService:DomSanitizationService, private api: ApiService) {
+    
+  }
+
+  loadFiles() {
+    this.api.getDocsList().subscribe(this._updateFilesList.bind(this))
   }
 
   createDoc() {
@@ -24,6 +29,10 @@ export class DocComponent implements OnInit {
       this._updateDocUrl.bind(this),
       this._logError.bind(this)
     )    
+  }
+
+  _updateFilesList(files) {
+    this.files = files; 
   }
 
   _updateDocUrl(docUrl) {
@@ -35,6 +44,8 @@ export class DocComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.api.getAuth().subscribe(()=> {
+      this.loadFiles();
+    });  
   }
-
 }

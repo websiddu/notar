@@ -3,15 +3,29 @@
 }
 
 .side {
-  width: 30%;
-  border-right: solid 1px #888;
+  width: 23%;
+  border-right: solid 1px #eee;
   height: 100%; 
   overflow-y: auto;
   top: 0; 
   bottom: 0; 
+  position: fixed; 
 }
 
 .main {
-  width: 70%; 
+  width: 77%; 
+  overflow-y: auto;
+  top: 0; 
+  bottom: 0; 
+  right: 0; 
+  position: fixed; 
+}
+
+.frame {
+  position: absolute; 
+  left: 0; 
+  right: 0; 
+  top: 0; 
+  bottom: 0; 
 }
 
