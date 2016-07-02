@@ -15,8 +15,4 @@ describe('App: Notar', () => {
     expect(app).toBeTruthy();
   }));
 
-  it('should have as title \'notar works!\'',
-      inject([NotarAppComponent], (app: NotarAppComponent) => {
-    expect(app.title).toEqual('notar works!');
-  }));
 });

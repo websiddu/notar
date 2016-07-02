@@ -1,9 +1,14 @@
 <div class="container">
+    <aside class="tags">
+        <ul>
+            <li># tag</li>
+        </ul>
+    </aside>
     <aside class="side">
         <button (click)="createDoc()">Create Doc</button>
         <ul>
             <li *ngFor="let file of files">
-                {{file.name}} – {{file.id}}
+                <app-card [file]="file"></app-card>
             </li>
         </ul>
     </aside>

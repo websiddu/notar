@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit() {
-    this.auth.checkAuth().subscribe((e) => {
+    this.auth.checkAuth().then((e) => {
       if (this.auth.isSignedIn) {
         // Todo: capture where the user was going and nav there.
         // Meanwhile redirect the user to the crisis admin

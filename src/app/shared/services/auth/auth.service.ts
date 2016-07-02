@@ -13,6 +13,7 @@ const AUTH_PROPERTIES = {
 
 declare var gapi: any;
 declare var firebase: any;
+declare var Promise: any; 
 
 
 @Injectable()
@@ -23,12 +24,10 @@ export class AuthService {
   isSignedIn: boolean = false; 
 
   constructor() {
-    
-    // this.checkAuth(); 
   }
 
   checkAuth() {
-     let authObserver = Observable.create((observer) => {
+     let authObserver = new Promise((resolve, reject) => {
         gapi.load('auth2', () => {
           this.auth2 = gapi.auth2.init(AUTH_PROPERTIES); 
           this.auth2.then(()=> {
@@ -36,8 +35,7 @@ export class AuthService {
             if(currentUser.isSignedIn()) {
               this.isSignedIn = true;
               this.currentUser = currentUser;
-              observer.next(true); 
-              observer.complete();  
+              resolve(true); 
             }
           }, ()=> {
             console.log("Can not Login!"); 

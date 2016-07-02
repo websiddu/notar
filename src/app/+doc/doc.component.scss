@@ -2,18 +2,32 @@
   display: flex; 
 }
 
+.tags {
+  width: 10%; 
+  max-width: 200px; 
+  min-width: 130px;
+  left: 0; 
+  background: #37474F; 
+  color: #fff; 
+  top: 0; 
+  bottom: 0;
+  position: fixed; 
+}
+
 .side {
   width: 23%;
   border-right: solid 1px #eee;
   height: 100%; 
   overflow-y: auto;
+  overflow-x: hidden; 
   top: 0; 
   bottom: 0; 
+  left: 10%; 
   position: fixed; 
 }
 
 .main {
-  width: 77%; 
+  width: 67%; 
   overflow-y: auto;
   top: 0; 
   bottom: 0; 
@@ -29,3 +43,11 @@
   bottom: 0; 
 }
 
+ul {
+  list-style-type: none; 
+  margin: 0 16px;
+  padding: 0;
+  li {
+    margin-bottom: 16px; 
+  }
+}

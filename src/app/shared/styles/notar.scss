@@ -1,2 +1,17 @@
-@import "./normalize";
+@import './core/globals'; 
+@import './core/normalization';
+@import './core/blockquotes';
+@import './core/buttons';
+@import './core/forms';
+@import './core/headings';
+@import './core/lists';
+@import './core/print';
+@import './core/tables';
+@import './core/type';
+
+@import './core/atgrid';
+@import './core/colors';
+@import './core/conditional-styling';
+@import './core/helpers';
+
 @import "./page";  

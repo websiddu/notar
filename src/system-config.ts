@@ -39,6 +39,8 @@ const barrels: string[] = [
   'app/+doc',
   'app/+login',
   'app/shared/docframe',
+  'app/shared/doc/doc-list-item',
+  'app/shared/doc/card',
   /** @cli-barrel */
 ];
 

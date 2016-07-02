@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 declare var gapi: any;
 declare var firebase: any;
+declare var Promise: any; 
 
 const CLIENT_ID = '155734877039-ftadpu31p6i79iied572licad72ji4bt.apps.googleusercontent.com';
 const SCOPES = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/documents'];
@@ -24,13 +25,12 @@ export class ApiService {
   }
 
   getAuth() {
-    let authObserver = Observable.create((observer) => {
+    let authObserver = new Promise((resolve, reject) => {
       gapi.auth.authorize(AUTH_PROPERTIES, (authResult) => {
          
        if (authResult && !authResult.error) {
           // Hide auth UI, then load client library.
-          observer.next(true); 
-          observer.complete();
+          resolve(true); 
         } else {
           let authProperties = AUTH_PROPERTIES; 
           authProperties.immediate = false; 
@@ -42,7 +42,7 @@ export class ApiService {
   }
 
   getDocsList(folderId?: string) {
-    let getDocsObserver = Observable.create((observer) => {
+    let getDocsObserver = new Promise((resolve, reject) => {
 
       let request = {
         'function': 'getDocsList'
@@ -57,8 +57,7 @@ export class ApiService {
           if (error.scriptStackTraceElements) {
           }
         } else {
-          observer.next(resp.response.result);
-          observer.complete();
+          resolve(resp.response.result);
         }
       });
     }); 
@@ -67,7 +66,7 @@ export class ApiService {
   }
 
   createNewDoc() {
-    let createNewDocObserver = Observable.create((observer) => {
+    let createNewDocObserver = new Promise((resolve, reject) => {
       let request = {
         'function': 'createDoc'
       };
@@ -82,8 +81,7 @@ export class ApiService {
           if (error.scriptStackTraceElements) {
           }
         } else {
-          observer.next(resp.response.result);
-          observer.complete();
+          resolve(resp.response.result);
         }
       });
     });

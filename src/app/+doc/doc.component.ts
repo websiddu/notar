@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../shared/services/api/api.service';
 import { DocframeComponent } from '../shared/docframe/docframe.component';
+import { CardComponent } from '../shared/doc/card/card.component';
+
 import {DomSanitizationService, SafeResourceUrl} from '@angular/platform-browser'; 
 
 @Component({
@@ -9,7 +11,7 @@ import {DomSanitizationService, SafeResourceUrl} from '@angular/platform-browser
   templateUrl: 'doc.component.html',
   styleUrls: ['doc.component.css'], 
   providers: [ApiService], 
-  directives: [DocframeComponent]
+  directives: [DocframeComponent, CardComponent]
 })
 export class DocComponent implements OnInit {
   
@@ -21,30 +23,19 @@ export class DocComponent implements OnInit {
   }
 
   loadFiles() {
-    this.api.getDocsList().subscribe(this._updateFilesList.bind(this))
+    this.api.getDocsList().then((result) => {
+      this.files = result;
+    })
   }
 
   createDoc() {
-    this.api.createNewDoc().subscribe(
-      this._updateDocUrl.bind(this),
-      this._logError.bind(this)
-    )    
-  }
-
-  _updateFilesList(files) {
-    this.files = files; 
-  }
-
-  _updateDocUrl(docUrl) {
-    this.docUrl = this.sanitationService.bypassSecurityTrustResourceUrl(docUrl);
-  }
-
-  _logError() {
-
+    this.api.createNewDoc().then((result) => {
+      this.docUrl = this.sanitationService.bypassSecurityTrustResourceUrl(result);  
+    })
   }
 
   ngOnInit() {
-    this.api.getAuth().subscribe(()=> {
+    this.api.getAuth().then(()=> {
       this.loadFiles();
     });  
   }

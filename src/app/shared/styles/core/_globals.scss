@@ -1,0 +1,145 @@
+//
+// Globals
+// =============================================================================
+
+@import './functions';
+
+//
+// Base
+// ----
+
+$font-base-size: 16 !default;
+$font-base-size-bg: 18 !default;
+
+// Font families
+$font-family:          "Sanchez", "Arial", sans-serif !default;
+$font-family-mono:     "Consolas", monospace !default;
+$font-family-headings: "Sanchez", "Arial", sans-serif !default;
+
+// Automatic margins
+$automargin: true !default;
+$block-margin: 1lh !default;
+
+// Transition duration
+$transition-duration: 150ms !default;
+
+// Custom media queries
+@custom-media --extra-small (width <= 480px);
+@custom-media --small (width >= 480px);
+@custom-media --medium (width >= 768px);
+@custom-media --large (width >= 960px);
+@custom-media --extra-large (width >= 1100px);
+@custom-media --only-small (480px < width <= 768px);
+@custom-media --only-medium (768px < width <= 980px);
+@custom-media --only-large (980px < width <= 1100px);
+
+// Spacing
+$spacing-xs: 0.5lh !default;
+$spacing-s:  1lh !default;
+$spacing-m:  1.5lh !default;
+$spacing-l:  2lh !default;
+$spacing-xl: 2.5lh !default;
+
+
+//
+// Type Scale Ratio
+// -------------
+
+// Suggested ratios
+// Source: http://type-scale.com/
+$minor-second:    1.067;
+$major-second:    1.125;
+$minor-third:     1.200;
+$major-third:     1.250;
+$perfect-fourth:  1.333;
+$augmented-fourth:1.414;
+$perfect-fifth:   1.500;
+$golden-ratio:    1.618;
+
+// Ratio
+$font-ratio-size: $perfect-fourth !default;
+
+// Scale
+$h5-size:   $font-base-size !default;
+$h6-size:   $h5-size / $font-ratio-size !default;
+$h4-size:   $h5-size * $font-ratio-size !default;
+$h3-size:   $h4-size * $font-ratio-size !default;
+$h2-size:   $h3-size * $font-ratio-size !default;
+$h1-size:   $h2-size * $font-ratio-size !default;
+$kilo-size: $h1-size * $font-ratio-size !default;
+$mega-size: $kilo-size * $font-ratio-size !default;
+$giga-size: $mega-size * $font-ratio-size !default;
+
+//
+// Color Palette
+// -------------
+
+// Colors
+$colors: (
+  base: (
+    "primary":   #4591aa,
+    "selection": #d6d6d6,
+    "lines":     #e0e0e0
+  ),
+
+  text: (
+    "primary":   #555,
+    "secondary": #666,
+    "heading":   #222,
+    "ui":        white
+  ),
+
+  background: (
+    "dark":  #282E31,
+    "light": #f5f5f5,
+    "body":  white
+  ),
+
+  state: (
+    "muted":   #aaa,
+    "primary": #4591aa,
+    "success": #45ca69,
+    "warning": #ffb800,
+    "error":   #ca4829
+  ),
+
+  blue: (
+    "darker":  #495b61,
+    "dark":    #447281,
+    "base":    #4591aa,
+    "light":   #5ab0cc,
+    "lighter": #74cbe8
+  ),
+
+  green: (
+    "darker":  #3b6e6e,
+    "dark":    #3b8686,
+    "base":    #37a1a1,
+    "light":   #2dbaba,
+    "lighter": #69d1d1
+  ),
+
+  cream: (
+    "darker":  #c47858,
+    "dark":    #e29372,
+    "base":    #ecac91,
+    "light":   #f9c2ab,
+    "lighter": #fdd5c3
+  ),
+
+  red: (
+    "darker":  #653131,
+    "dark":    #b73333,
+    "base":    #da3c3c,
+    "light":   #f25a5a,
+    "lighter": #fa8181
+  ),
+
+  gray: (
+    "darker":  #333333,
+    "dark":    #4d4d4d,
+    "base":    #666666,
+    "light":   #808080,
+    "lighter": #999999
+  )
+) !default;
