@@ -20,8 +20,6 @@ export class DocComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router) {
 
-      console.log("...... should load htis.. ")
-
   }
 
   // Util funcitons
@@ -31,14 +29,13 @@ export class DocComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.sub.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   ngOnInit() {
-    console.log("Comess. here....")
     this.sub = this.route.params.subscribe(params => {
-       let id = params['id'];
-       this.doc.url = `//docs.google.com/document/d/${id}/edit?usp=drivesdk`;
+        let id = params['id'];
+        this.doc.url = id != 1 ? `//docs.google.com/document/d/${id}/edit?usp=drivesdk` : '';
      });
   }
 }

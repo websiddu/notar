@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'app-slide',
+  selector: 'slide',
   templateUrl: 'slide.component.html',
   styleUrls: ['slide.component.css']
 })
 export class SlideComponent implements OnInit {
+
+  @Input() isActive: boolean = false;
 
   constructor() {}
 

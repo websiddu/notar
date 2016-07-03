@@ -76,6 +76,21 @@ export class ApiService {
     return getDocsObserver;
   }
 
+
+  createFolder(folderName) {
+      gapi.client.request({
+        'path': '/drive/v3/files',
+        'method': 'POST',
+        'body': {
+          'name': folderName,
+          'mimeType': 'application/vnd.google-apps.folder'
+        }
+      }).then( (data) => {
+        console.log(data);
+      });
+
+  }
+
   createNewDoc() {
     let createNewDocObserver = new Promise((resolve, reject) => {
       let request = {

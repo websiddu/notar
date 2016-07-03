@@ -1,3 +1,16 @@
-<p>
-  carousel works!
-</p>
+<div class="carousel">
+    <!--<slide> slide 1 </slide>
+    <slide> slide 2 </slide>
+    <slide isActive=true> slide 3 </slide>-->
+
+    <ng-content></ng-content>
+    <nav class="carousel-nav">
+        <ul>
+            <li *ngFor='let slide of slideComponents'>
+                •
+            </li>
+        </ul>
+
+        <button (click)="prevSlide()"> ≤- Prev </button><button (click)="nextSlide()"> Next ->  </button>
+    </nav>
+</div>

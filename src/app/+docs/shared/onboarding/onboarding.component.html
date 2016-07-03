@@ -1,3 +1,12 @@
 <app-modal [header]=''>
-    <carousel></carousel>
+    <carousel>
+        <!--<slide isActive='true'>Slide 1</slide>-->
+        <!--<slide>Slide 2</slide>-->
+        <slide isActive='true'>
+            <form action="" (ngSubmit)="onSubmit()">
+                <input type="text" [(ngModel)]="folderName">
+                <button> Create </button>
+            </form>
+        </slide>
+    </carousel>
 </app-modal>
