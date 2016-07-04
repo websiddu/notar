@@ -1,6 +1,11 @@
 <div class="container">
     <aside class="tags">
         <ul>
+            <!--<li *ngFor="let item of items">
+                {{ item }}
+            </li>-->
+        </ul>
+        <ul>
             <li># tag</li>
         </ul>
     </aside>
@@ -8,13 +13,13 @@
         <button (click)="createDoc()">Create Doc</button>
         <ul>
             <li *ngFor="let file of files">
-                <app-card [file]="file"></app-card>
+                <app-card [file]="file" (click)="openDoc(file)"></app-card>
             </li>
         </ul>
     </aside>
     <main class="main">
-        <div *ngIf="docUrl">
-            <iframe width="100%" height="100%" [src]="docUrl" frameborder="0" allowfullscreen class="frame"></iframe>
+        <div *ngIf="currentDoc != undefined">
+            <iframe width="100%" height="100%" [src]="getSafeUrl(currentDoc.url)" frameborder="0" allowfullscreen class="frame"></iframe>
         </div>
     </main>
 </div>
