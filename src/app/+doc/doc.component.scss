@@ -1,5 +1,10 @@
 .container {
-  display: flex;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .tags {
@@ -16,7 +21,7 @@
 
 .side {
   width: 23%;
-  border-right: solid 1px #eee;
+  border-right: solid 1px rgb(217, 217, 217);
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -24,6 +29,7 @@
   bottom: 0;
   left: 10%;
   position: fixed;
+  background: #eee;
 }
 
 .main {
@@ -45,9 +51,17 @@
 
 ul {
   list-style-type: none;
-  margin: 0 16px;
+  margin: 0;
   padding: 0;
   li {
-    margin-bottom: 16px;
+    margin: 0;
+  }
+}
+
+.search {
+  padding: 20px;
+  input {
+    font-size: 15px;
+    height: 35px;
   }
 }

@@ -10,6 +10,7 @@ import { Document } from '../../../+doc/doc.model';
 export class CardComponent implements OnInit {
 
   @Input() file: Document;
+  @Input() currentDoc: any;
 
   constructor() {
   }

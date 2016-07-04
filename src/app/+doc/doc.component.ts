@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../shared/services/api/api.service';
-import { DocframeComponent } from '../shared/docframe/docframe.component';
-import { CardComponent } from '../shared/doc/card/card.component';
+
+import {NgClass} from '@angular/common';
+
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {DomSanitizationService, SafeResourceUrl} from '@angular/platform-browser';
 
 import { Document } from './doc.model';
 
-import {DomSanitizationService, SafeResourceUrl} from '@angular/platform-browser';
+import { ApiService } from '../shared/services/api/api.service';
+import { AuthService } from '../shared/services/auth/auth.service';
+
+import { CardComponent } from '../shared/doc/card/card.component';
+import { DocframeComponent } from '../shared/docframe/docframe.component';
 
 
 declare var firebase;
@@ -17,7 +22,7 @@ declare var firebase;
   templateUrl: 'doc.component.html',
   styleUrls: ['doc.component.css'],
   providers: [ApiService],
-  directives: [DocframeComponent, CardComponent]
+  directives: [DocframeComponent, CardComponent, NgClass]
 })
 
 export class DocComponent implements OnInit {
@@ -28,7 +33,8 @@ export class DocComponent implements OnInit {
 
   constructor(private sanitationService: DomSanitizationService,
     private api: ApiService,
-    private af: AngularFire) {
+    private af: AngularFire,
+    private auth: AuthService) {
 
       // this.items = af.database.list('/notes');
 
@@ -37,6 +43,10 @@ export class DocComponent implements OnInit {
       //   this.items = snapshot.val();
       // });
       // // this.items = notes;
+  }
+
+  logout() {
+    this.auth.removeAuth();
   }
 
   getSafeUrl(url: string) {
@@ -48,12 +58,25 @@ export class DocComponent implements OnInit {
   }
 
   loadFiles() {
-    this.api.getDocsList().then((result) => {
-      for (let i = 0; i < result.length; i++) {
-        let file = new Document(result[i]);
-        this.files.unshift(file);
-      }
-    });
+    // this.api.getDocsList().then((result) => {
+    //   for (let i = 0; i < result.length; i++) {
+    //     let file = new Document(result[i]);
+    //     this.files.unshift(file);
+    //   }
+    // });
+
+    this.api.getFiles().then((data: any) => {
+        this.files = data.files;
+        if (data.ok) {
+          // this.auth.handleAuthError(data);
+        }
+      },
+      (error) => {
+        this.auth.handleAuthError(error);
+      },
+      () => {
+        console.log('Get all Items complete');
+      });
   }
 
   createDoc() {
@@ -65,7 +88,7 @@ export class DocComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.api.getAuth().then(() => {
+    this.api.getAuth().then((isSignedIn) => {
       this.loadFiles();
     });
   }

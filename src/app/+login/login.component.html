@@ -1,8 +1,14 @@
-<button *ngIf="!auth.isSignedIn" (click)="login()">Create User</button>
-<span *ngIf="auth.isSignedIn">Signed In</span>
+<div class="page-login">
+    <div class="container-login">
+        <div class="splash-logo a10x fadeInUp mdt-standard">
+            <img src="/assets/logo.svg" alt="Hippo logo">
+        </div>
+        <button *ngIf="!auth.isSignedIn" (click)="login()" class="signin-button d10x a05x fadeIn mdt-standard">
+            <img src="/assets/google.svg" alt="Google Logo">
+            Sign in with Google
+        </button>
+        <span *ngIf="auth.isSignedIn">Signed in</span>
 
-<button (click)="givepermissions()">Give permissions</button>
-
-<button (click)="createdoc()">Create Doc</button>
-
-<button (click)="logout()">Logout</button>
+        <!--<button (click)="logout()">Logout</button>-->
+    </div>
+</div>

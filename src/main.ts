@@ -1,7 +1,9 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
 import { NotarAppComponent, environment } from './app/';
+import { HTTP_PROVIDERS } from '@angular/http';
 import { APP_ROUTER_PROVIDERS } from './app/notar.routes';
+import { Config } from './app/shared/services/config.service';
 
 import {FIREBASE_PROVIDERS,
   defaultFirebase,
@@ -17,6 +19,8 @@ if (environment.production) {
 bootstrap(NotarAppComponent, [
   FIREBASE_PROVIDERS,
   APP_ROUTER_PROVIDERS,
+  HTTP_PROVIDERS,
+  Config,
   defaultFirebase({
     apiKey: 'AIzaSyCNuE4FTljf5fa4mPOowxT2vmLae6XHyRo',
     authDomain: 'project-1922609808476689818.firebaseapp.com',

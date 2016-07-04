@@ -1,5 +1,7 @@
-@import './core/globals'; 
+
+@import './core/globals';
 @import './core/normalization';
+@import './core/animate';
 @import './core/blockquotes';
 @import './core/buttons';
 @import './core/forms';
@@ -15,4 +17,5 @@
 @import './core/helpers';
 @import './core/scroll';
 
-@import "./page";  
+
+@import "./page";

@@ -1,69 +1,78 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+// import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
-const CLIENT_ID = '155734877039-ftadpu31p6i79iied572licad72ji4bt.apps.googleusercontent.com';
-const SCOPES = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/documents'];
-const AUTH_PROPERTIES = {
-        client_id: CLIENT_ID,
-        cookiepolicy: 'single_host_origin',
-        immediate: false, 
-        scope: SCOPES.join(' ')
-      }
-
+import { Config } from '../config.service';
 
 declare var gapi: any;
 declare var firebase: any;
-declare var Promise: any; 
+declare var Promise: any;
 
 
 @Injectable()
 export class AuthService {
-  
-  auth2: any;
-  currentUser: any; 
-  isSignedIn: boolean = false; 
 
-  constructor() {
+  auth2: any;
+  currentUser: any;
+  isSignedIn: boolean = false;
+
+  constructor(public router: Router,
+   private config: Config) {
   }
 
   checkAuth() {
      let authObserver = new Promise((resolve, reject) => {
         gapi.load('auth2', () => {
-          this.auth2 = gapi.auth2.init(AUTH_PROPERTIES); 
-          this.auth2.then(()=> {
+          this.auth2 = gapi.auth2.init(this.config.authProperties);
+          this.auth2.then(() => {
             let currentUser = gapi.auth2.getAuthInstance().currentUser.get();
-            if(currentUser.isSignedIn()) {
+            if (currentUser.isSignedIn()) {
               this.isSignedIn = true;
               this.currentUser = currentUser;
-              resolve(true); 
+              resolve(currentUser.isSignedIn());
+              gapi.client.load('drive', 'v3');
             }
-          }, ()=> {
-            console.log("Can not Login!"); 
+          }, () => {
+            console.log('Can not Login!');
           });
-        }); 
-     }); 
-    return authObserver; 
-  }
-  
-  doAuth() {
-    this.auth2.signIn().then((googleUser) => {
-      this.handleAuthResult(googleUser)
-    })
+        });
+     });
+    return authObserver;
   }
 
-  // Signout 
+  doAuth() {
+    this.auth2.signIn().then((googleUser) => {
+      this.handleAuthResult(googleUser);
+    });
+  }
+
+  // Signout
   removeAuth() {
-    gapi.auth2.getAuthInstance().signOut(); 
-    this.currentUser = null; 
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+
+    this.currentUser = null;
     this.isSignedIn = false;
   }
-  
-  handleAuthResult(authResult) {
-    
-    if(!authResult.isSignedIn()) {
-      return; 
+
+  handleAuthError(error) {
+    if (!gapi.auth2) {
+      this.router.navigate(['/login']);
     }
-    
+  }
+
+  handleAuthSuccess() {
+    this.router.navigate(['/doc']);
+  }
+
+  handleAuthResult(authResult) {
+
+    if(!authResult.isSignedIn()) {
+      return;
+    }
+
     let unsubscribe = firebase.auth().onAuthStateChanged( (firebaseUser) => {
       unsubscribe();
       // Check if we are already signed-in Firebase with the correct user.
@@ -86,14 +95,15 @@ export class AuthService {
         console.log('User already signed-in Firebase.');
       }
 
-      this.currentUser = authResult; 
+      this.currentUser = authResult;
       this.isSignedIn = true;
+      this.handleAuthSuccess();
     });
 
   }
 
-  private 
-  // Util functions 
+  private
+  // Util functions
   _isUserEqual(googleUser, firebaseUser) {
     if (firebaseUser) {
       var providerData = firebaseUser.providerData;

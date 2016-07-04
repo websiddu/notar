@@ -1,44 +1,57 @@
 import { Injectable } from '@angular/core';
+import { Http, Response, Headers } from '@angular/http';
+import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
+import { Config } from '../config.service';
 
 declare var gapi: any;
 declare var firebase: any;
-declare var Promise: any; 
-
-const CLIENT_ID = '155734877039-ftadpu31p6i79iied572licad72ji4bt.apps.googleusercontent.com';
-const SCOPES = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/documents'];
-const AUTH_PROPERTIES = {
-  client_id: CLIENT_ID,
-  cookiepolicy: 'single_host_origin',
-  immediate: true,
-  scope: SCOPES.join(' ')
-}
-
-const SCRIPT_ID = "1585tQzTyZ0DXBT_X0K1mHgUFx0hG_EQNAyEvkLAR9jSXMAZrQ4tpyMQP";
+declare var Promise: any;
 
 @Injectable()
 export class ApiService {
+  private headers: Headers;
 
-  constructor() {
-    
+  constructor(private http: Http, private config: Config) {
+    this.headers = new Headers();
+    this.headers.append('Content-Type', 'application/json');
+    this.headers.append('Accept', 'application/json');
   }
+
+  // Get the list of files
+  getFiles() {
+    let filesObserver = new Promise((resolve, reject) => {
+      gapi.client.load('drive', 'v3', () => {
+        var request = gapi.client.drive.files.list({
+          'pageSize': 10,
+          'fields': 'nextPageToken, files(id, name, webViewLink, createdTime, modifiedByMeTime)',
+          'q': encodeURI(`mimeType='application/vnd.google-apps.document'`)
+        });
+        request.execute((resp) => {
+          resolve(resp);
+        });
+      });
+    });
+    return filesObserver;
+  }
+
 
   getAuth() {
     let authObserver = new Promise((resolve, reject) => {
-      gapi.auth.authorize(AUTH_PROPERTIES, (authResult) => {
-         
+      gapi.auth.authorize(this.config.authProperties, (authResult) => {
+
        if (authResult && !authResult.error) {
           // Hide auth UI, then load client library.
-          resolve(true); 
+          resolve(true);
         } else {
-          let authProperties = AUTH_PROPERTIES; 
-          authProperties.immediate = false; 
-          gapi.auth.authorize(authProperties);  
+          let authProperties = this.config.authProperties;
+          authProperties.immediate = false;
+          gapi.auth.authorize(authProperties);
         }
       });
-    }); 
-    return authObserver; 
+    });
+    return authObserver;
   }
 
   getDocsList(folderId?: string) {
@@ -60,9 +73,9 @@ export class ApiService {
           resolve(resp.response.result);
         }
       });
-    }); 
+    });
 
-    return getDocsObserver; 
+    return getDocsObserver;
   }
 
   createNewDoc() {
@@ -71,7 +84,7 @@ export class ApiService {
         'function': 'createDoc'
       };
 
-      let op = this._request(request); 
+      let op = this._request(request);
 
       op.execute((resp) => {
         if (resp.error && resp.error.status) {
@@ -89,11 +102,11 @@ export class ApiService {
     return createNewDocObserver;
   }
 
-  private 
+  private;
   _request(options: any) {
     return gapi.client.request({
         'root': 'https://script.googleapis.com',
-        'path': 'v1/scripts/' + SCRIPT_ID + ':run',
+        'path': 'v1/scripts/' + this.config.scriptId + ':run',
         'method': 'POST',
         'body': options
       });

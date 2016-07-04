@@ -8,18 +8,27 @@
         <ul>
             <li># tag</li>
         </ul>
+        <br>
+        <br>
+        <br>
+        <button (click)="logout()">LogOut</button>
     </aside>
     <aside class="side">
-        <button (click)="createDoc()">Create Doc</button>
+        <!--<button (click)="createDoc()">Create Doc</button>-->
+        <div class="search">
+            <input type="text">
+        </div>
         <ul>
             <li *ngFor="let file of files">
-                <app-card [file]="file" (click)="openDoc(file)"></app-card>
+                <app-card [file]="file" (click)="openDoc(file)" [currentDoc]="currentDoc">
+                </app-card>
             </li>
         </ul>
+
     </aside>
     <main class="main">
         <div *ngIf="currentDoc != undefined">
-            <iframe width="100%" height="100%" [src]="getSafeUrl(currentDoc.url)" frameborder="0" allowfullscreen class="frame"></iframe>
+            <iframe width="100%" height="100%" [src]="getSafeUrl(currentDoc.webViewLink)" frameborder="0" allowfullscreen class="frame"></iframe>
         </div>
     </main>
 </div>
