@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES }  from '@angular/router';
+import { NgClass }  from '@angular/common';
 // import { Routes , ROUTER_DIRECTIVES} from '@angular/router';
 
 // Route component
@@ -23,6 +24,7 @@ import { AuthService } from './shared/services/auth/auth.service';
     DocComponent,
     TagsBarComponent,
     SideBarComponent,
+    NgClass,
     ROUTER_DIRECTIVES],
   providers: [AuthService],
   encapsulation: ViewEncapsulation.None

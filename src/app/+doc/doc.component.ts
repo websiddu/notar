@@ -26,15 +26,6 @@ export class DocComponent implements OnInit, OnDestroy {
 
   }
 
-
-  // createDoc() {
-  //   this.api.createNewDoc().then((result) => {
-  //     this.currentDoc = new Document(result);
-  //     this.docs.unshift(this.currentDoc);
-  //     this.items.push(result);
-  //   });
-  // }
-
   // Util funcitons
 
   getSafeUrl(url: string) {
@@ -48,7 +39,7 @@ export class DocComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
        let id = params['id'];
-       this.doc.url = `//docs.google.com/document/d/${id}/edit?usp=drivesdk`
+       this.doc.url = `//docs.google.com/document/d/${id}/edit?usp=drivesdk`;
      });
   }
 }
