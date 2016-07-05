@@ -1,15 +1,19 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { NgClass } from '@angular/common';
+
+
 import { Document } from '../../../+doc/doc.model';
 
 @Component({
   moduleId: module.id,
   selector: 'app-card',
   templateUrl: 'card.component.html',
-  styleUrls: ['card.component.css']
+  styleUrls: ['card.component.css'],
+  directives: [NgClass]
 })
 export class CardComponent implements OnInit {
 
-  @Input() file: Document;
+  @Input() doc: Document;
   @Input() currentDoc: any;
 
   constructor() {

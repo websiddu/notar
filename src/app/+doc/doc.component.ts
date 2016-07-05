@@ -10,8 +10,8 @@ import { Document } from './doc.model';
 import { ApiService } from '../shared/services/api/api.service';
 import { AuthService } from '../shared/services/auth/auth.service';
 
-import { CardComponent } from '../shared/doc/card/card.component';
-import { DocframeComponent } from '../shared/docframe/docframe.component';
+
+import { DocListComponent } from '../shared/doc/doc-list/doc-list.component';
 
 
 declare var firebase;
@@ -22,13 +22,13 @@ declare var firebase;
   templateUrl: 'doc.component.html',
   styleUrls: ['doc.component.css'],
   providers: [ApiService],
-  directives: [DocframeComponent, CardComponent, NgClass]
+  directives: [ DocListComponent ]
 })
 
 export class DocComponent implements OnInit {
 
   public currentDoc: Document;
-  public files: Document[] = [];
+  public docs: Document[] = [];
   items: any;
 
   constructor(private sanitationService: DomSanitizationService,
@@ -36,25 +36,10 @@ export class DocComponent implements OnInit {
     private af: AngularFire,
     private auth: AuthService) {
 
-      // this.items = af.database.list('/notes');
-
-      // var notes = firebase.database().ref('notes').on('value', (snapshot) => {
-      //   // updateStarCount(postElement, snapshot.val());
-      //   this.items = snapshot.val();
-      // });
-      // // this.items = notes;
   }
 
   logout() {
     this.auth.removeAuth();
-  }
-
-  getSafeUrl(url: string) {
-    return this.sanitationService.bypassSecurityTrustResourceUrl(url);
-  }
-
-  openDoc(doc) {
-    this.currentDoc = doc;
   }
 
   loadFiles() {
@@ -66,7 +51,8 @@ export class DocComponent implements OnInit {
     // });
 
     this.api.getFiles().then((data: any) => {
-        this.files = data.files;
+        this.docs = data.files;
+        this.currentDoc = this.docs[0];
         if (data.ok) {
           // this.auth.handleAuthError(data);
         }
@@ -82,10 +68,17 @@ export class DocComponent implements OnInit {
   createDoc() {
     this.api.createNewDoc().then((result) => {
       this.currentDoc = new Document(result);
-      this.files.unshift(this.currentDoc);
+      this.docs.unshift(this.currentDoc);
       this.items.push(result);
     });
   }
+
+  // Util funcitons
+
+  getSafeUrl(url: string) {
+    return this.sanitationService.bypassSecurityTrustResourceUrl(url);
+  }
+
 
   ngOnInit() {
     this.api.getAuth().then((isSignedIn) => {

@@ -1,0 +1,6 @@
+<ul>
+    <li *ngFor="let doc of docs">
+        <app-card [doc]="doc" (click)="openDoc(doc)" [currentDoc]="currentDoc">
+        </app-card>
+    </li>
+</ul>

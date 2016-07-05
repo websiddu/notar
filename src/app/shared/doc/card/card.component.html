@@ -1,9 +1,9 @@
-<div class="card" [ngClass]="{active: currentDoc && currentDoc.id == file.id}">
+<div class="card" [ngClass]="{active: currentDoc && currentDoc.id == doc.id}">
     <div class="card-header">
     </div>
     <div class="card-body">
-        <time>{{file.modifiedAt}}</time>
-        <h2>{{file.name}}</h2>
+        <time>{{doc.modifiedAt}}</time>
+        <h2>{{doc.name}}</h2>
     </div>
     <div class="card-footer">
 

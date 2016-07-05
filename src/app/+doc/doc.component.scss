@@ -8,9 +8,7 @@
 }
 
 .tags {
-  width: 10%;
-  max-width: 200px;
-  min-width: 130px;
+  width: 8%;
   left: 0;
   background: #37474F;
   color: #fff;
@@ -20,20 +18,20 @@
 }
 
 .side {
-  width: 23%;
+  width: 20%;
   border-right: solid 1px rgb(217, 217, 217);
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
   top: 0;
   bottom: 0;
-  left: 10%;
+  left: 8%;
   position: fixed;
   background: #eee;
 }
 
 .main {
-  width: 67%;
+  width: 72%;
   overflow-y: auto;
   top: 0;
   bottom: 0;
@@ -47,15 +45,6 @@
   right: 0;
   top: 0;
   bottom: 0;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  li {
-    margin: 0;
-  }
 }
 
 .search {

@@ -15,8 +15,11 @@ let win;
 function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
-        width: 800,
-        height: 600
+        width: 1280,
+        height: 767,
+        // frame: false,
+        // transparent: true,
+        titleBarStyle: 'hidden'
     });
 
     // and load the index.html of the app.
