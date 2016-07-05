@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { Router } from '@angular/router';
 
 import { CardComponent } from '../card/card.component';
 
@@ -16,10 +16,10 @@ export class DocListComponent implements OnInit {
   @Input() docs: any;
   @Input() currentDoc: any;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   openDoc(doc) {
-    this.currentDoc = doc;
+    this.router.navigate(['/doc', doc.id]);
   }
 
   ngOnInit() {

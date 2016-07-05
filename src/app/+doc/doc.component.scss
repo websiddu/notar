@@ -1,56 +1,7 @@
-.container {
-  background: #fff;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.tags {
-  width: 8%;
-  left: 0;
-  background: #37474F;
-  color: #fff;
-  top: 0;
-  bottom: 0;
-  position: fixed;
-}
-
-.side {
-  width: 20%;
-  border-right: solid 1px rgb(217, 217, 217);
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  top: 0;
-  bottom: 0;
-  left: 8%;
-  position: fixed;
-  background: #eee;
-}
-
-.main {
-  width: 72%;
-  overflow-y: auto;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  position: fixed;
-}
-
 .frame {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-}
-
-.search {
-  padding: 20px;
-  input {
-    font-size: 15px;
-    height: 35px;
-  }
 }

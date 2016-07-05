@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
     this.auth.removeAuth();
   }
 
-
   ngOnInit() {
     this.auth.checkAuth().then((isSignedIn) => {
       if (isSignedIn) {

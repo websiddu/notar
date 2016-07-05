@@ -1,2 +1,12 @@
-
-<router-outlet></router-outlet>
+<div class="container">
+    <div *ngIf="isSignedIn">
+        <app-tags-bar></app-tags-bar>
+        <app-side-bar></app-side-bar>
+        <main class="main">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+    <div *ngIf="!isSignedIn">
+        <router-outlet></router-outlet>
+    </div>
+</div>

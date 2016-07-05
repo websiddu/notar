@@ -2,7 +2,8 @@
 ::-webkit-scrollbar {
     height: 16px;
     overflow: visible;
-    width: 16px
+    width: 8px;
+    background: #fff;
 }
 
 ::-webkit-scrollbar-button {
@@ -13,7 +14,7 @@
 ::-webkit-scrollbar-track {
     background-clip: padding-box;
     border: solid transparent;
-    border-width: 0 0 0 4px
+    border-width: 0 0 0 0;
 }
 
 ::-webkit-scrollbar-track:horizontal {
@@ -60,7 +61,7 @@
     background-color: rgba(0,0,0,.2);
     background-clip: padding-box;
     border: solid transparent;
-    border-width: 1px 1px 1px 6px;
+    border-width: 1px 1px 1px 2px;
     min-height: 28px;
     padding: 100px 0 0;
     box-shadow: inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07)
@@ -80,51 +81,6 @@
 ::-webkit-scrollbar-thumb:active {
     background-color: rgba(0,0,0,0.5);
     box-shadow: inset 1px 1px 3px rgba(0,0,0,0.35)
-}
-
-.jfk-scrollbar-dark::-webkit-scrollbar-thumb {
-    background-color: rgba(255,255,255,.3);
-    box-shadow: inset 1px 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.1)
-}
-
-.jfk-scrollbar-dark::-webkit-scrollbar-thumb:horizontal {
-    box-shadow: inset 1px 1px 0 rgba(255,255,255,.15),inset -1px 0 0 rgba(255,255,255,.1)
-}
-
-.jfk-scrollbar-dark::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255,255,255,.6);
-    box-shadow: inset 1px 1px 1px rgba(255,255,255,.37)
-}
-
-.jfk-scrollbar-dark::-webkit-scrollbar-thumb:active {
-    background-color: rgba(255,255,255,.75);
-    box-shadow: inset 1px 1px 3px rgba(255,255,255,.5)
-}
-
-.jfk-scrollbar-borderless::-webkit-scrollbar-track {
-    border-width: 0 1px 0 6px
-}
-
-.jfk-scrollbar-borderless::-webkit-scrollbar-track:horizontal {
-    border-width: 6px 0 1px
-}
-
-.jfk-scrollbar-borderless::-webkit-scrollbar-track:hover {
-    background-color: rgba(0,0,0,.035);
-    box-shadow: inset 1px 1px 0 rgba(0,0,0,.14),inset -1px -1px 0 rgba(0,0,0,.07)
-}
-
-.jfk-scrollbar-borderless.jfk-scrollbar-dark::-webkit-scrollbar-track:hover {
-    background-color: rgba(255,255,255,.07);
-    box-shadow: inset 1px 1px 0 rgba(255,255,255,.25),inset -1px -1px 0 rgba(255,255,255,.15)
-}
-
-.jfk-scrollbar-borderless::-webkit-scrollbar-thumb {
-    border-width: 0 1px 0 6px
-}
-
-.jfk-scrollbar-borderless::-webkit-scrollbar-thumb:horizontal {
-    border-width: 6px 0 1px
 }
 
 ::-webkit-scrollbar-corner {
