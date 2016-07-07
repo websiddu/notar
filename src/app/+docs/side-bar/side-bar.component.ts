@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ApiService } from '../../services/api/api.service';
-import { AuthService } from '../../services/auth/auth.service';
+import { ApiService } from '../../shared/services/api/api.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
 
-import { DocListComponent } from '../../doc/doc-list/doc-list.component';
-import { ProfileBarComponent } from '../profile-bar/profile-bar.component';
+import { DocListComponent } from '../../shared/doc/doc-list/doc-list.component';
+import { ProfileBarComponent } from '../shared/profile-bar/profile-bar.component';
 
 @Component({
   moduleId: module.id,

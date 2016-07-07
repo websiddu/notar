@@ -19,7 +19,7 @@ export class DocListComponent implements OnInit {
   constructor(private router: Router) {}
 
   openDoc(doc) {
-    this.router.navigate(['/doc', doc.id]);
+    this.router.navigate(['/docs', doc.id]);
   }
 
   ngOnInit() {

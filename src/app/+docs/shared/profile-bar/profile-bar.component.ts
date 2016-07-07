@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 
 // Services
-import { AuthService } from '../../services/auth/auth.service';
+import { AuthService } from '../../../shared/services/auth/auth.service';
 
 @Component({
   moduleId: module.id,

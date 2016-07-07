@@ -1,19 +1,61 @@
 import { provideRouter, RouterConfig } from '@angular/router';
-import { LoginRoutes, AUTH_PROVIDERS } from './+login/login.routes';
-import { DocRoutes } from './+doc/doc.routes';
+
+
+import { DocsComponent } from './+docs/docs.component';
+import { DocComponent } from './+docs/doc/doc.component';
+import { SideBarComponent } from './+docs/side-bar/side-bar.component';
+import { TagsBarComponent } from './+docs/tags-bar/tags-bar.component';
+
+import { AuthService } from './shared/services/auth/auth.service';
+import { AuthGuard } from './shared/services/auth/auth.guard.service';
+
+import { LoginComponent } from './+login/login.component';
+
+// import { LoginRoutes, AUTH_PROVIDERS } from './+login/login.routes';
+// import { DocsRoutes } from './+docs/docs.routes';
 
 // import { CanDeactivateGuard } from './interfaces';
 
 export const routes: RouterConfig = [
-//   ...HeroesRoutes,
-  ...LoginRoutes,
-  ...DocRoutes
-//   ...CrisisCenterRoutes
+  {
+    path: '',
+    // pathMatch: 'prefix', //default
+    redirectTo: 'login',
+    terminal: true
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'docs',
+    component: DocsComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: DocsComponent
+      },
+      {
+        path: ':id',
+        component: DocComponent
+      },
+      {
+        path: '',
+        component: SideBarComponent,
+        outlet: 'sidebar'
+      },
+      {
+        path: '',
+        component: TagsBarComponent,
+        outlet: 'tagsbar'
+      }
+    ]
+  }
 ];
 
 export const APP_ROUTER_PROVIDERS = [
-  provideRouter(routes),
-  AUTH_PROVIDERS
-//   AUTH_PROVIDERS,
-//   CanDeactivateGuard
+  provideRouter(routes, {enableTracing: true}),
+  AuthGuard,
+  AuthService
 ];

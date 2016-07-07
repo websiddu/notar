@@ -16,6 +16,8 @@ if (environment.production) {
   enableProdMode();
 }
 
+// provide(PLATFORM_DIRECTIVES, { useValue: [ROUTER_DIRECTIVES], multi: true })
+
 bootstrap(NotarAppComponent, [
   FIREBASE_PROVIDERS,
   APP_ROUTER_PROVIDERS,

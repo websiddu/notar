@@ -1,7 +1,1 @@
-<div class="container">
-    <app-tags-bar *ngIf="isSignedIn"></app-tags-bar>
-    <app-side-bar *ngIf="isSignedIn"></app-side-bar>
-    <main [ngClass]="{main: isSignedIn}">
-        <router-outlet></router-outlet>
-    </main>
-</div>
+<router-outlet></router-outlet>
