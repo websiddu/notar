@@ -33,10 +33,6 @@ export const routes: RouterConfig = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: '',
-        component: DocsComponent
-      },
-      {
         path: ':id',
         component: DocComponent
       },
