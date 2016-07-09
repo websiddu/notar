@@ -13,7 +13,9 @@ export class Config {
 
   // API
   apiRootUrl = 'https://www.googleapis.com/drive/v3';
-  apiFilesUrl = `${this.apiRootUrl}/files?key=AIzaSyCNuE4FTljf5fa4mPOowxT2vmLae6XHyRo`;
+
+  apiFilesUrl = `${this.apiRootUrl}/files`;
+  apiCreateUrl = `/files`;
 
   constructor() {
 
