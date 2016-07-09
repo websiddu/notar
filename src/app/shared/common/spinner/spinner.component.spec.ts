@@ -9,26 +9,25 @@ import {
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DocsComponent } from './docs.component';
+import { SpinnerComponent } from './spinner.component';
 
-
-describe('Component: Doc', () => {
+describe('Component: Spinner', () => {
   let builder: TestComponentBuilder;
 
-  beforeEachProviders(() => [DocsComponent]);
+  beforeEachProviders(() => [SpinnerComponent]);
   beforeEach(inject([TestComponentBuilder], function (tcb: TestComponentBuilder) {
     builder = tcb;
   }));
 
-  it('should inject the component', inject([DocsComponent],
-      (component: DocsComponent) => {
+  it('should inject the component', inject([SpinnerComponent],
+      (component: SpinnerComponent) => {
     expect(component).toBeTruthy();
   }));
 
   it('should create the component', inject([], () => {
-    return builder.createAsync(DocsComponentTestController)
+    return builder.createAsync(SpinnerComponentTestController)
       .then((fixture: ComponentFixture<any>) => {
-        let query = fixture.debugElement.query(By.directive(DocsComponent));
+        let query = fixture.debugElement.query(By.directive(SpinnerComponent));
         expect(query).toBeTruthy();
         expect(query.componentInstance).toBeTruthy();
       });
@@ -38,10 +37,10 @@ describe('Component: Doc', () => {
 @Component({
   selector: 'test',
   template: `
-    <app-doc></app-doc>
+    <app-spinner></app-spinner>
   `,
-  directives: [DocsComponent]
+  directives: [SpinnerComponent]
 })
-class DocsComponentTestController {
+class SpinnerComponentTestController {
 }
 

@@ -1,0 +1,10 @@
+<overlay></overlay>
+<div class="modal-container">
+    <div class="modal">
+        <header class="modal-header" *ngIf='header'>{{header}}</header>
+        <main class="modal-body">
+            <ng-content></ng-content>
+        </main>
+        <footer class="modal-footer"></footer>
+    </div>
+</div>

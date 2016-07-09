@@ -11,9 +11,6 @@ import { AuthGuard } from './shared/services/auth/auth.guard.service';
 
 import { LoginComponent } from './+login/login.component';
 
-// import { LoginRoutes, AUTH_PROVIDERS } from './+login/login.routes';
-// import { DocsRoutes } from './+docs/docs.routes';
-
 // import { CanDeactivateGuard } from './interfaces';
 
 export const routes: RouterConfig = [

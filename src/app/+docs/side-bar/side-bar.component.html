@@ -1,9 +1,8 @@
-<p>Sidebar loaded...</p>
 <aside class="side">
-    <!--<button (click)="createDoc()">Create Doc</button>-->
     <app-profile-bar></app-profile-bar>
     <div class="search">
         <input type="text">
     </div>
-    <app-doc-list [docs]='docs' [currentDoc]='currentDoc'></app-doc-list>
+    <spinner [isRunning]="isRequesting"></spinner>
+    <app-doc-list [docs]='docs' [currentDoc]='currentDoc'>Loading...</app-doc-list>
 </aside>

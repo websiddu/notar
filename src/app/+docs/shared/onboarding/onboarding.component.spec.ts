@@ -9,26 +9,25 @@ import {
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DocsComponent } from './docs.component';
+import { OnboardingComponent } from './onboarding.component';
 
-
-describe('Component: Doc', () => {
+describe('Component: Onboarding', () => {
   let builder: TestComponentBuilder;
 
-  beforeEachProviders(() => [DocsComponent]);
+  beforeEachProviders(() => [OnboardingComponent]);
   beforeEach(inject([TestComponentBuilder], function (tcb: TestComponentBuilder) {
     builder = tcb;
   }));
 
-  it('should inject the component', inject([DocsComponent],
-      (component: DocsComponent) => {
+  it('should inject the component', inject([OnboardingComponent],
+      (component: OnboardingComponent) => {
     expect(component).toBeTruthy();
   }));
 
   it('should create the component', inject([], () => {
-    return builder.createAsync(DocsComponentTestController)
+    return builder.createAsync(OnboardingComponentTestController)
       .then((fixture: ComponentFixture<any>) => {
-        let query = fixture.debugElement.query(By.directive(DocsComponent));
+        let query = fixture.debugElement.query(By.directive(OnboardingComponent));
         expect(query).toBeTruthy();
         expect(query.componentInstance).toBeTruthy();
       });
@@ -38,10 +37,10 @@ describe('Component: Doc', () => {
 @Component({
   selector: 'test',
   template: `
-    <app-doc></app-doc>
+    <app-onboarding></app-onboarding>
   `,
-  directives: [DocsComponent]
+  directives: [OnboardingComponent]
 })
-class DocsComponentTestController {
+class OnboardingComponentTestController {
 }
 

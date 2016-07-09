@@ -3,6 +3,7 @@ import {DomSanitizationService} from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
+import { OnboardingComponent } from './shared/onboarding/onboarding.component';
 
 
 // import { Document } from './doc.model';
@@ -15,13 +16,10 @@ declare var firebase;
   templateUrl: 'docs.component.html',
   styleUrls: ['docs.component.css'],
   providers: [],
-  directives: [ROUTER_DIRECTIVES]
+  directives: [ROUTER_DIRECTIVES, OnboardingComponent]
 })
 
 export class DocsComponent implements OnInit, OnDestroy {
-
-  private sub: any;
-  public doc: any = {};
 
   constructor(private sanitationService: DomSanitizationService,
     private route: ActivatedRoute,
@@ -29,17 +27,10 @@ export class DocsComponent implements OnInit, OnDestroy {
 
   }
 
-  // Util funcitons
-
-  getSafeUrl(url: string) {
-    return this.sanitationService.bypassSecurityTrustResourceUrl(url);
-  }
-
   ngOnDestroy() {
-    this.sub.unsubscribe();
   }
 
   ngOnInit() {
-    
+
   }
 }

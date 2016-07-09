@@ -9,26 +9,25 @@ import {
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DocsComponent } from './docs.component';
+import { CarouselComponent } from './carousel.component';
 
-
-describe('Component: Doc', () => {
+describe('Component: Carousel', () => {
   let builder: TestComponentBuilder;
 
-  beforeEachProviders(() => [DocsComponent]);
+  beforeEachProviders(() => [CarouselComponent]);
   beforeEach(inject([TestComponentBuilder], function (tcb: TestComponentBuilder) {
     builder = tcb;
   }));
 
-  it('should inject the component', inject([DocsComponent],
-      (component: DocsComponent) => {
+  it('should inject the component', inject([CarouselComponent],
+      (component: CarouselComponent) => {
     expect(component).toBeTruthy();
   }));
 
   it('should create the component', inject([], () => {
-    return builder.createAsync(DocsComponentTestController)
+    return builder.createAsync(CarouselComponentTestController)
       .then((fixture: ComponentFixture<any>) => {
-        let query = fixture.debugElement.query(By.directive(DocsComponent));
+        let query = fixture.debugElement.query(By.directive(CarouselComponent));
         expect(query).toBeTruthy();
         expect(query.componentInstance).toBeTruthy();
       });
@@ -38,10 +37,10 @@ describe('Component: Doc', () => {
 @Component({
   selector: 'test',
   template: `
-    <app-doc></app-doc>
+    <app-carousel></app-carousel>
   `,
-  directives: [DocsComponent]
+  directives: [CarouselComponent]
 })
-class DocsComponentTestController {
+class CarouselComponentTestController {
 }
 

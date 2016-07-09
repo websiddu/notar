@@ -38,7 +38,6 @@ export class DocComponent implements OnInit, OnDestroy {
     console.log("Comess. here....")
     this.sub = this.route.params.subscribe(params => {
        let id = params['id'];
-       console.log(id); 
        this.doc.url = `//docs.google.com/document/d/${id}/edit?usp=drivesdk`;
      });
   }

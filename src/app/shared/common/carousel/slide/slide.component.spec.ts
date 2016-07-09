@@ -9,26 +9,25 @@ import {
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DocsComponent } from './docs.component';
+import { SlideComponent } from './slide.component';
 
-
-describe('Component: Doc', () => {
+describe('Component: Slide', () => {
   let builder: TestComponentBuilder;
 
-  beforeEachProviders(() => [DocsComponent]);
+  beforeEachProviders(() => [SlideComponent]);
   beforeEach(inject([TestComponentBuilder], function (tcb: TestComponentBuilder) {
     builder = tcb;
   }));
 
-  it('should inject the component', inject([DocsComponent],
-      (component: DocsComponent) => {
+  it('should inject the component', inject([SlideComponent],
+      (component: SlideComponent) => {
     expect(component).toBeTruthy();
   }));
 
   it('should create the component', inject([], () => {
-    return builder.createAsync(DocsComponentTestController)
+    return builder.createAsync(SlideComponentTestController)
       .then((fixture: ComponentFixture<any>) => {
-        let query = fixture.debugElement.query(By.directive(DocsComponent));
+        let query = fixture.debugElement.query(By.directive(SlideComponent));
         expect(query).toBeTruthy();
         expect(query.componentInstance).toBeTruthy();
       });
@@ -38,10 +37,10 @@ describe('Component: Doc', () => {
 @Component({
   selector: 'test',
   template: `
-    <app-doc></app-doc>
+    <app-slide></app-slide>
   `,
-  directives: [DocsComponent]
+  directives: [SlideComponent]
 })
-class DocsComponentTestController {
+class SlideComponentTestController {
 }
 

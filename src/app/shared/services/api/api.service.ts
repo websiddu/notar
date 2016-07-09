@@ -22,7 +22,7 @@ export class ApiService {
     let filesObserver = new Promise((resolve, reject) => {
       gapi.client.load('drive', 'v3', () => {
         var request = gapi.client.drive.files.list({
-          'pageSize': 10,
+          'pageSize': 20,
           'fields': 'nextPageToken, files(id, name, webViewLink, createdTime, modifiedByMeTime)',
           'q': encodeURI(`mimeType='application/vnd.google-apps.document'`)
         });

@@ -42,7 +42,13 @@ const barrels: string[] = [
   'app/+docs/tags-bar',
   'app/+login',
   'app/shared/doc/card',
-  'app/shared/doc/doc-list'
+  'app/shared/doc/doc-list',
+  'app/shared/common/spinner',
+  'app/+docs/shared/onboarding',
+  'app/shared/common/modal',
+  'app/shared/common/modal/overlay',
+  'app/shared/common/carousel',
+  'app/shared/common/carousel/slide',
   /** @cli-barrel */
 ];
 

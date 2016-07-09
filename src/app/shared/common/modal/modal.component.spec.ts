@@ -9,26 +9,25 @@ import {
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DocsComponent } from './docs.component';
+import { ModalComponent } from './modal.component';
 
-
-describe('Component: Doc', () => {
+describe('Component: Modal', () => {
   let builder: TestComponentBuilder;
 
-  beforeEachProviders(() => [DocsComponent]);
+  beforeEachProviders(() => [ModalComponent]);
   beforeEach(inject([TestComponentBuilder], function (tcb: TestComponentBuilder) {
     builder = tcb;
   }));
 
-  it('should inject the component', inject([DocsComponent],
-      (component: DocsComponent) => {
+  it('should inject the component', inject([ModalComponent],
+      (component: ModalComponent) => {
     expect(component).toBeTruthy();
   }));
 
   it('should create the component', inject([], () => {
-    return builder.createAsync(DocsComponentTestController)
+    return builder.createAsync(ModalComponentTestController)
       .then((fixture: ComponentFixture<any>) => {
-        let query = fixture.debugElement.query(By.directive(DocsComponent));
+        let query = fixture.debugElement.query(By.directive(ModalComponent));
         expect(query).toBeTruthy();
         expect(query.componentInstance).toBeTruthy();
       });
@@ -38,10 +37,10 @@ describe('Component: Doc', () => {
 @Component({
   selector: 'test',
   template: `
-    <app-doc></app-doc>
+    <app-modal></app-modal>
   `,
-  directives: [DocsComponent]
+  directives: [ModalComponent]
 })
-class DocsComponentTestController {
+class ModalComponentTestController {
 }
 
