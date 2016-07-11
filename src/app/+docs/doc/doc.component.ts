@@ -14,7 +14,9 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 export class DocComponent implements OnInit, OnDestroy {
 
   private sub: any;
-  public doc: any = {};
+  public doc: any = {
+    url: 'http://websiddu.com'
+  };
 
   constructor(private sanitationService: DomSanitizationService,
     private route: ActivatedRoute,
@@ -33,9 +35,11 @@ export class DocComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log("Initilized on evey page burl...");
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
-        this.doc.url = id != 1 ? `//docs.google.com/document/d/${id}/edit?usp=drivesdk` : '';
+        // this.doc.url = id != 1 ? `https://docs.google.com/document/d/${id}/edit?usp=drivesdk` : '';
+        // this.doc.url = 'http://websiddu.com'
      });
   }
 }
