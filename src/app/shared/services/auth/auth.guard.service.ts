@@ -4,18 +4,14 @@ import { CanActivate,
     ActivatedRouteSnapshot,
     RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromPromise';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(private auth: AuthService, private router: Router) { }
 
-    canActivate(
-        // Not using but worth knowing about
-        next: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
-    ) {
-        // if (this.authService.isSignedIn) { return true; }
-        // this.router.navigate(['/login']);
-        return true;
+    canActivate( next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.auth.checkAuth();
     }
 }

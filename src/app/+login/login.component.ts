@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.auth.checkAuth().then((isSignedIn) => {
+    this.auth.checkAuth().subscribe((isSignedIn) => {
       if (isSignedIn) {
         this.router.navigate(['/docs/1']);
       }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-// import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 
 import { Config } from '../config.service';
+
 
 declare var gapi: any;
 declare var firebase: any;
@@ -18,26 +19,33 @@ export class AuthService {
 
   constructor(public router: Router,
    private config: Config) {
+
+
   }
 
+
   checkAuth() {
-     let authObserver = new Promise((resolve, reject) => {
-        gapi.load('auth2', () => {
+    return  Observable.create( (observer) => {
+     gapi.load('auth2', () => {
           this.auth2 = gapi.auth2.init(this.config.authProperties);
           this.auth2.then(() => {
             let currentUser = gapi.auth2.getAuthInstance().currentUser.get();
+
             if (currentUser.isSignedIn()) {
               this.isSignedIn = true;
               this.currentUser = currentUser;
-              resolve(currentUser.isSignedIn());
-              gapi.client.load('drive', 'v3');
+              observer.next(true);
+            } else {
+              observer.next(false);
+              this.router.navigate(['/login']);
             }
+            observer.complete();
           }, () => {
             console.log('Can not Login!');
           });
         });
-     });
-    return authObserver;
+    });
+
   }
 
   doAuth() {
@@ -64,12 +72,12 @@ export class AuthService {
   }
 
   handleAuthSuccess() {
-    this.router.navigate(['/doc']);
+    this.router.navigate(['/docs/1']);
   }
 
   handleAuthResult(authResult) {
 
-    if(!authResult.isSignedIn()) {
+    if (!authResult.isSignedIn()) {
       return;
     }
 
@@ -82,14 +90,7 @@ export class AuthService {
           authResult.getAuthResponse().id_token);
         // Sign in with credential from the Google user.
         firebase.auth().signInWithCredential(credential).catch( (error) => {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
+
         });
       } else {
         console.log('User already signed-in Firebase.');

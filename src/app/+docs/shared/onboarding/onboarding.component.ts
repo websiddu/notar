@@ -18,14 +18,22 @@ import { ApiService } from '../../../shared/services/api/api.service';
 export class OnboardingComponent implements OnInit {
 
   folderName: string;
+  folderId: string;
 
   constructor(private api: ApiService) {}
 
   onSubmit() {
-    this.api.createFolder(this.folderName);
+    if (!this.folderName) {
+      return;
+    }
+    this.api.createFolder(this.folderName).then( (response) => {
+      this.folderId = response.body.id;
+      this.api.updateUserConfig();
+    });
   }
 
   ngOnInit() {
+
   }
 
 }

@@ -77,18 +77,26 @@ export class ApiService {
   }
 
 
-  createFolder(folderName) {
-      gapi.client.request({
-        'path': '/drive/v3/files',
-        'method': 'POST',
-        'body': {
-          'name': folderName,
-          'mimeType': 'application/vnd.google-apps.folder'
-        }
-      }).then( (data) => {
-        console.log(data);
-      });
+  // Create a folder based on the given users name
+  //
+  // folderName: string – Name of the folder
+  createFolder(folderName: string) {
+    if (!folderName) {
+      return;
+    }
+    return gapi.client.request({
+      'path': '/drive/v3/files',
+      'method': 'POST',
+      'body': {
+        'name': folderName,
+        'mimeType': 'application/vnd.google-apps.folder'
+      }
+    });
+  }
 
+  updateUserConfig() {
+    // let config = {};
+    debugger;
   }
 
   createNewDoc() {
