@@ -1,4 +1,4 @@
-<app-onboarding></app-onboarding>
+<app-onboarding *ngIf='isFirstTime'></app-onboarding>
 
 <router-outlet name='tagsbar'></router-outlet>
 <router-outlet name='sidebar'></router-outlet>
