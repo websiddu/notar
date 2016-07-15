@@ -41,8 +41,8 @@ export class SideBarComponent implements OnInit {
 
   ngOnInit() {
     this.api.getAuth().then((isSignedIn) => {
-      // this.loadFiles();
-      // this.isRequesting = false;
+      this.loadFiles();
+      this.isRequesting = false;
     });
   }
 
