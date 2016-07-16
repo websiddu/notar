@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import {DomSanitizationService} from '@angular/platform-browser';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { AngularFire } from 'angularfire2';
+
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { OnboardingComponent } from './shared/onboarding/onboarding.component';
@@ -21,9 +23,11 @@ declare var firebase;
 
 export class DocsComponent implements OnInit, OnDestroy {
 
+  isFirstTime: boolean = false;
+
   constructor(private sanitationService: DomSanitizationService,
-    private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private af: AngularFire) {
 
   }
 
@@ -31,6 +35,14 @@ export class DocsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
+    var userId = firebase.auth().currentUser.uid;
+    firebase.database().ref(`users/${userId}/folder`).once('value').then( (snapshot) => {
+      if (snapshot.val().id) {
+        this.isFirstTime = false;
+        localStorage['folderId'] = snapshot.val().id;
+      } else {
+        this.isFirstTime = true;
+      }
+    });
   }
 }

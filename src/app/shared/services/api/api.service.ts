@@ -24,7 +24,7 @@ export class ApiService {
         var request = gapi.client.drive.files.list({
           'pageSize': 20,
           'fields': 'nextPageToken, files(id, name, webViewLink, createdTime, modifiedByMeTime)',
-          'q': encodeURI(`mimeType='application/vnd.google-apps.document'`)
+          'q': `'${localStorage['folderId']}' in parents and mimeType='application/vnd.google-apps.document'`
         });
         request.execute((resp) => {
           resolve(resp);
@@ -33,6 +33,9 @@ export class ApiService {
     });
     return filesObserver;
   }
+
+  //'0B73Qoo-AGhMMRHpBb18yU0xvSVk' in parents and mimeType='application/vnd.google-apps.document'
+  // '0B73Qoo-AGhMMRHpBb18yU0xvSVk' in parents
 
 
   getAuth() {
@@ -50,30 +53,6 @@ export class ApiService {
       });
     });
     return authObserver;
-  }
-
-  getDocsList(folderId?: string) {
-    let getDocsObserver = new Promise((resolve, reject) => {
-
-      let request = {
-        'function': 'getDocsList'
-      };
-
-      let op = this._request(request);
-      op.execute((resp) => {
-        if (resp.error && resp.error.status) {
-          console.log(error);
-        } else if (resp.error) {
-          var error = resp.error.details[0];
-          if (error.scriptStackTraceElements) {
-          }
-        } else {
-          resolve(resp.response.result);
-        }
-      });
-    });
-
-    return getDocsObserver;
   }
 
 
@@ -94,43 +73,22 @@ export class ApiService {
     });
   }
 
-  updateUserConfig() {
-    // let config = {};
-    debugger;
-  }
 
-  createNewDoc() {
-    let createNewDocObserver = new Promise((resolve, reject) => {
-      let request = {
-        'function': 'createDoc'
-      };
-
-      let op = this._request(request);
-
-      op.execute((resp) => {
-        if (resp.error && resp.error.status) {
-          console.log(error);
-        } else if (resp.error) {
-          var error = resp.error.details[0];
-          if (error.scriptStackTraceElements) {
-          }
-        } else {
-          resolve(resp.response.result);
-        }
-      });
-    });
-
-    return createNewDocObserver;
-  }
-
-  private;
-  _request(options: any) {
+  // Create a new Doucment
+  createNewDoc(docname = 'Untitled' ) {
+    if (!docname) {
+      return;
+    }
     return gapi.client.request({
-        'root': 'https://script.googleapis.com',
-        'path': 'v1/scripts/' + this.config.scriptId + ':run',
-        'method': 'POST',
-        'body': options
-      });
+      'path': '/drive/v3/files',
+      'method': 'POST',
+      'body': {
+        'name': docname,
+        'parents': [localStorage['folderId']],
+        'mimeType': 'application/vnd.google-apps.document'
+      }
+    });
   }
+
 
 }

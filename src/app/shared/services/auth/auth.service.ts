@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { AngularFire } from 'angularfire2';
 
 import { Config } from '../config.service';
 
@@ -18,8 +19,8 @@ export class AuthService {
   isSignedIn: boolean = false;
 
   constructor(public router: Router,
-   private config: Config) {
-
+   private config: Config,
+   private af: AngularFire) {
 
   }
 
@@ -30,7 +31,6 @@ export class AuthService {
           this.auth2 = gapi.auth2.init(this.config.authProperties);
           this.auth2.then(() => {
             let currentUser = gapi.auth2.getAuthInstance().currentUser.get();
-
             if (currentUser.isSignedIn()) {
               this.isSignedIn = true;
               this.currentUser = currentUser;
@@ -45,7 +45,6 @@ export class AuthService {
           });
         });
     });
-
   }
 
   doAuth() {
@@ -83,14 +82,22 @@ export class AuthService {
 
     let unsubscribe = firebase.auth().onAuthStateChanged( (firebaseUser) => {
       unsubscribe();
-      // Check if we are already signed-in Firebase with the correct user.
       if (!this._isUserEqual(authResult, firebaseUser)) {
-        // Build Firebase credential with the Google ID token.
         var credential = firebase.auth.GoogleAuthProvider.credential(
           authResult.getAuthResponse().id_token);
-        // Sign in with credential from the Google user.
-        firebase.auth().signInWithCredential(credential).catch( (error) => {
 
+        firebase.auth().signInWithCredential(credential)
+        .then( (user) => {
+          // Create the user object for the first time
+          firebase.database().ref('users/' + user.uid).set({
+            foldername: '',
+            displayName: user.displayName,
+            tags: {}
+          });
+        }, () => {
+          // On rejct
+        })
+        .catch( (error) => {
         });
       } else {
         console.log('User already signed-in Firebase.');
@@ -103,7 +110,6 @@ export class AuthService {
 
   }
 
-  private
   // Util functions
   _isUserEqual(googleUser, firebaseUser) {
     if (firebaseUser) {
