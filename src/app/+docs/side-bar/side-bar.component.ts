@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ApiService } from '../../shared/services/api/api.service';
 import { AuthService } from '../../shared/services/auth/auth.service';
@@ -18,30 +19,24 @@ import { SpinnerComponent } from '../../shared/common/spinner/spinner.component'
 })
 export class SideBarComponent implements OnInit {
 
-  public docs: any;
-  public currentDoc: any;
+  @Input() docs: any;
+
   public isRequesting: boolean = false;
 
-  constructor(private api: ApiService, private auth: AuthService) {
+  currentDoc: string = '';
+
+  constructor(private api: ApiService,
+  private auth: AuthService,
+  private router: Router) {
 
   }
 
-  loadFiles() {
-    this.api.getFiles().then((data: any) => {
-        this.docs = data.files;
-        this.currentDoc = this.docs[0];
-      },
-      (error) => {
-        this.auth.handleAuthError(error);
-      },
-      () => {
-        console.log('Get all Items complete');
-      });
+  onFileCreated(doc: any) {
+    this.docs.unshift(doc);
   }
 
   ngOnInit() {
     this.api.getAuth().then((isSignedIn) => {
-      this.loadFiles();
       this.isRequesting = false;
     });
   }

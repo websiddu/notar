@@ -17,6 +17,26 @@ export class ApiService {
     this.headers.append('Accept', 'application/json');
   }
 
+  // Get a document data
+  getDoc(id: string) {
+    if (!id) {
+      return;
+    }
+
+    return gapi.client.request({
+      'path': `/drive/v3/files/${id}`,
+      'method': 'GET',
+      'params': {
+        'fields': 'appProperties,contentHints,createdTime,description,explicitlyTrashed,' +
+          'fileExtension,folderColorRgb,fullFileExtension,headRevisionId,iconLink,id,' +
+          'isAppAuthorized,kind,md5Checksum,mimeType,modifiedByMeTime,modifiedTime,' +
+          'name,originalFilename,ownedByMe,parents,properties,quotaBytesUsed,shared,' +
+          'size,spaces,starred,thumbnailLink,trashed,version,viewedByMeTime,' +
+          'viewersCanCopyContent,webContentLink,webViewLink,writersCanShare'
+      }
+    });
+  }
+
   // Get the list of files
   getFiles() {
     let filesObserver = new Promise((resolve, reject) => {
@@ -24,7 +44,8 @@ export class ApiService {
         var request = gapi.client.drive.files.list({
           'pageSize': 20,
           'fields': 'nextPageToken, files(id, name, webViewLink, createdTime, modifiedByMeTime)',
-          'q': `'${localStorage['folderId']}' in parents and mimeType='application/vnd.google-apps.document'`
+          'q': `'${localStorage['folderId']}' in parents and mimeType=
+          'application/vnd.google-apps.document'`
         });
         request.execute((resp) => {
           resolve(resp);
@@ -33,9 +54,6 @@ export class ApiService {
     });
     return filesObserver;
   }
-
-  //'0B73Qoo-AGhMMRHpBb18yU0xvSVk' in parents and mimeType='application/vnd.google-apps.document'
-  // '0B73Qoo-AGhMMRHpBb18yU0xvSVk' in parents
 
 
   getAuth() {

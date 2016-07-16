@@ -32,16 +32,6 @@ export const routes: RouterConfig = [
       {
         path: ':id',
         component: DocComponent
-      },
-      {
-        path: '',
-        component: SideBarComponent,
-        outlet: 'sidebar'
-      },
-      {
-        path: '',
-        component: TagsBarComponent,
-        outlet: 'tagsbar'
       }
     ]
   }

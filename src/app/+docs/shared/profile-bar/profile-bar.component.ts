@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 import { Router } from '@angular/router';
 
@@ -18,6 +18,8 @@ export class ProfileBarComponent implements OnInit {
   currentUserName: string = '';
   currentUserImg: string = '';
 
+  @Output() onFileCreated = new EventEmitter<any>();
+
   constructor(private auth: AuthService,
     private api: ApiService,
     private router: Router) {
@@ -28,6 +30,7 @@ export class ProfileBarComponent implements OnInit {
     let that = this;
     this.api.createNewDoc().then( (response) => {
       let id = response.result.id;
+      this.onFileCreated.emit(response.result);
       that.router.navigate([`/docs/${id}`]);
     });
   }
