@@ -50,7 +50,6 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    debugger;
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
         let url = id != 1 ? `https://docs.google.com/document/d/${id}/edit?usp=drivesdk` : '';

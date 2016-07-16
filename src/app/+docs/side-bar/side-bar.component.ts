@@ -20,10 +20,9 @@ import { SpinnerComponent } from '../../shared/common/spinner/spinner.component'
 export class SideBarComponent implements OnInit {
 
   @Input() docs: any;
+  @Input() currentDoc: any;
 
   public isRequesting: boolean = false;
-
-  currentDoc: string = '';
 
   constructor(private api: ApiService,
   private auth: AuthService,

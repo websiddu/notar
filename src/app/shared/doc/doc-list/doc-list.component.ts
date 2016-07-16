@@ -19,6 +19,7 @@ export class DocListComponent implements OnInit {
   constructor(private router: Router) {}
 
   openDoc(doc) {
+    this.currentDoc = doc;
     this.router.navigate(['/docs', doc.id]);
   }
 
