@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AngularFire } from 'angularfire2';
 
 
@@ -18,7 +18,6 @@ declare var firebase;
   styleUrls: ['onboarding.component.css'],
   directives: [ ModalComponent, CarouselComponent, SlideComponent ],
   providers: [ApiService]
-
 })
 export class OnboardingComponent implements OnInit {
 
