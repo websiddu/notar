@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ApiService } from '../../shared/services/api/api.service';
@@ -16,7 +16,8 @@ import { SpinnerComponent } from '../../shared/common/spinner/spinner.component'
   templateUrl: 'side-bar.component.html',
   styleUrls: ['side-bar.component.css'],
   providers: [AuthService, ApiService],
-  directives: [DocListComponent, ProfileBarComponent, SpinnerComponent]
+  directives: [DocListComponent, ProfileBarComponent, SpinnerComponent],
+  encapsulation: ViewEncapsulation.None
 })
 export class SideBarComponent implements OnInit {
 
