@@ -3,7 +3,7 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { NotarAppComponent }   from './notar.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { APP_ROUTER_PROVIDERS } from './notar.routes';
+import { routing, routingProviders } from './notar.routing';
 
 import { AngularFireModule } from 'angularfire2';
 
@@ -15,6 +15,7 @@ import { Config } from './shared/services/config.service';
 import { AuthGuard } from './shared/services/auth/auth.guard.service';
 import { AuthService } from './shared/services/auth/auth.service';
 import { ApiService } from './shared/services/api/api.service';
+import { DocService } from './shared/services/doc/doc.service';
 
 
 let firebaseConfig = {
@@ -33,16 +34,18 @@ let firebaseConfig = {
         LoginComponent,
     ],
     providers: [
+        routingProviders,
         Config,
         AuthGuard,
         AuthService,
-        ApiService
+        ApiService,
+        DocService
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
-        APP_ROUTER_PROVIDERS,
+        routing,
         AngularFireModule.initializeApp(firebaseConfig)
     ],
     bootstrap:    [NotarAppComponent],
