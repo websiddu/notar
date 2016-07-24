@@ -32,6 +32,10 @@ export const routes: RouterConfig = [
       {
         path: ':id',
         component: DocComponent
+      },
+      {
+        path: '',
+        // component: DocsComponent
       }
     ]
   }

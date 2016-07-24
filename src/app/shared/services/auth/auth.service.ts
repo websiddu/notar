@@ -80,6 +80,8 @@ export class AuthService {
       return;
     }
 
+    let that = this;
+
     let unsubscribe = firebase.auth().onAuthStateChanged( (firebaseUser) => {
       unsubscribe();
       if (!this._isUserEqual(authResult, firebaseUser)) {
@@ -88,12 +90,20 @@ export class AuthService {
 
         firebase.auth().signInWithCredential(credential)
         .then( (user) => {
+          debugger;
           // Create the user object for the first time
+          // firebase.auth().currentUser.uid
           firebase.database().ref('users/' + user.uid).set({
             foldername: '',
             displayName: user.displayName,
             tags: {}
           });
+
+          localStorage['uid'] = user.uid;
+
+          that.currentUser = authResult;
+          that.isSignedIn = true;
+          that.handleAuthSuccess();
         }, () => {
           // On rejct
         })
@@ -103,9 +113,6 @@ export class AuthService {
         console.log('User already signed-in Firebase.');
       }
 
-      this.currentUser = authResult;
-      this.isSignedIn = true;
-      this.handleAuthSuccess();
     });
 
   }

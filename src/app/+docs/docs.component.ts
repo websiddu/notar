@@ -5,12 +5,10 @@ import { AngularFire } from 'angularfire2';
 
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
-import { OnboardingComponent } from './shared/onboarding/onboarding.component';
-
-
 import { ApiService } from '../shared/services/api/api.service';
 import { AuthService } from '../shared/services/auth/auth.service';
 
+import { OnboardingComponent } from './shared/onboarding/onboarding.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { TagsBarComponent } from './tags-bar/tags-bar.component';
 
@@ -59,9 +57,9 @@ export class DocsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     setTimeout( () => {
-      var userId = firebase.auth().currentUser.uid;
+      var userId = localStorage['uid'];
       firebase.database().ref(`users/${userId}/folder`).once('value').then( (snapshot) => {
-        if (snapshot.val().id) {
+        if (snapshot.val()) {
           this.isFirstTime = false;
           localStorage['folderId'] = snapshot.val().id;
           this.loadFiles();
@@ -69,6 +67,6 @@ export class DocsComponent implements OnInit, OnDestroy {
           this.isFirstTime = true;
         }
       });
-    }, 200);
+    }, 1000);
   }
 }
