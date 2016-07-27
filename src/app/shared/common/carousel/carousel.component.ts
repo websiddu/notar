@@ -1,4 +1,5 @@
-import { Component, OnInit, ContentChildren , AfterViewInit, QueryList} from '@angular/core';
+import { Component, OnInit, ContentChildren,
+   AfterViewInit, QueryList, ViewEncapsulation} from '@angular/core';
 
 import { SlideComponent } from './slide/slide.component';
 
@@ -7,7 +8,8 @@ import { SlideComponent } from './slide/slide.component';
   selector: 'carousel',
   templateUrl: 'carousel.component.html',
   styleUrls: ['carousel.component.css'],
-  directives: [ SlideComponent ]
+  directives: [ SlideComponent ],
+  encapsulation: ViewEncapsulation.None
 })
 export class CarouselComponent implements OnInit, AfterViewInit  {
 
