@@ -47,6 +47,8 @@ export class AuthService {
     });
   }
 
+
+
   doAuth() {
     this.auth2.signIn().then((googleUser) => {
       this.handleAuthResult(googleUser);
@@ -90,7 +92,6 @@ export class AuthService {
 
         firebase.auth().signInWithCredential(credential)
         .then( (user) => {
-          debugger;
           // Create the user object for the first time
           // firebase.auth().currentUser.uid
           firebase.database().ref('users/' + user.uid).set({

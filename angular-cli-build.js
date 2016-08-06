@@ -12,9 +12,10 @@ module.exports = function(defaults) {
             'reflect-metadata/*.js',
             'rxjs/**/*.js',
             '@angular/**/*.js',
-
+            'firebase/*.js',
             'angularfire2/**/*.js',
-            'firebase/*.js'
+            'ng2-ckeditor/lib/*.+(js|js.map)'
+            // 'ckeditor/**/*.js'
         ],
         sassCompiler: {
             "cacheExclude": [/\/_[^\/]+$/]

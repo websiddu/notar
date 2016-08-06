@@ -4,10 +4,12 @@ import { NotarAppComponent, environment } from './app/';
 import { HTTP_PROVIDERS } from '@angular/http';
 import { APP_ROUTER_PROVIDERS } from './app/notar.routes';
 import { Config } from './app/shared/services/config.service';
+import {disableDeprecatedForms, provideForms} from '@angular/forms';
+
+
 
 import {FIREBASE_PROVIDERS,
   defaultFirebase,
-  AngularFire,
   AuthMethods,
   AuthProviders,
   firebaseAuthConfig} from 'angularfire2';
@@ -23,6 +25,8 @@ bootstrap(NotarAppComponent, [
   APP_ROUTER_PROVIDERS,
   HTTP_PROVIDERS,
   Config,
+  disableDeprecatedForms(),
+  provideForms(),
   defaultFirebase({
     apiKey: 'AIzaSyCNuE4FTljf5fa4mPOowxT2vmLae6XHyRo',
     authDomain: 'project-1922609808476689818.firebaseapp.com',

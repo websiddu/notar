@@ -34,7 +34,7 @@ export const routes: RouterConfig = [
         component: DocComponent
       },
       {
-        path: '',
+        path: ''
         // component: DocsComponent
       }
     ]

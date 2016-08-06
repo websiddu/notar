@@ -44,8 +44,8 @@ export class ApiService {
         var request = gapi.client.drive.files.list({
           'pageSize': 20,
           'fields': 'nextPageToken, files(id, name, webViewLink, createdTime, modifiedByMeTime)',
-          'q': `'${localStorage['folderId']}' in parents and mimeType=
-          'application/vnd.google-apps.document'`
+          'q': `'${localStorage['folderId']}' in parents and mimeType contains
+          'application/vnd.google-apps.drive-sdk'`
         });
         request.execute((resp) => {
           resolve(resp);
@@ -103,7 +103,7 @@ export class ApiService {
       'body': {
         'name': docname,
         'parents': [localStorage['folderId']],
-        'mimeType': 'application/vnd.google-apps.document'
+        'mimeType': 'application/vnd.google-apps.drive-sdk'
       }
     });
   }

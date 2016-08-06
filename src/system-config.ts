@@ -4,14 +4,19 @@
 /** Map relative paths to URLs. */
 const map: any = {
   'firebase': 'vendor/firebase/firebase.js',
-  'angularfire2': 'vendor/angularfire2'
+  'angularfire2': 'vendor/angularfire2',
+  // 'ckeditor': 'vendor/ckeditor/ckeditor.js'
+  'ng2-ckeditor': 'vendor/ng2-ckeditor/lib/CKEditor.js',
 };
 
 /** User packages configuration. */
 const packages: any = {
-  angularfire2: {
+  'angularfire2': {
     defaultExtension: 'js',
     main: 'angularfire2.js'
+  },
+  'ng2-ckeditor': {
+    format: 'cjs'
   }
 };
 
@@ -25,6 +30,7 @@ const barrels: string[] = [
   '@angular/common',
   '@angular/compiler',
   '@angular/http',
+  '@angular/forms',
   '@angular/router',
   '@angular/platform-browser',
   '@angular/platform-browser-dynamic',
@@ -49,6 +55,7 @@ const barrels: string[] = [
   'app/shared/common/modal/overlay',
   'app/shared/common/carousel',
   'app/shared/common/carousel/slide',
+  'app/shared/common/editor',
   /** @cli-barrel */
 ];
 

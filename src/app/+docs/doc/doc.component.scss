@@ -16,4 +16,13 @@
   bottom: 0;
 }
 
+.title {
+  height: 42px;
+  border: 0;
+  border-radius: 0;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
 
