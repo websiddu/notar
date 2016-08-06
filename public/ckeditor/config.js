@@ -81,7 +81,7 @@ CKEDITOR.editorConfig = function(config) {
     }, {
         name: 'basicstyles',
         groups: ['basicstyles', 'colors']
-    },  {
+    }, {
         name: 'paragraph',
         groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']
     }, {
@@ -98,7 +98,7 @@ CKEDITOR.editorConfig = function(config) {
         groups: ['others']
     }];
 
-    config.removeButtons = 'Subscript,Superscript,Blockquote,Outdent,Indent,Styles,Anchor';
+    config.removeButtons = 'Subscript,Superscript,Indent,Styles,Anchor,Blockquote,Outdent,PageBreak,SpecialChar';
 
     config.skin = 'minimalist';
     // %REMOVE_END%
