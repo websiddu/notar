@@ -1,7 +1,10 @@
 <main class="main">
-    <span *ngIf='doc.name'>
-      <input type="text" [(ngModel)]='doc.name' class='title' (change)='onTitleChange($event)'>
-    </span>
+    <div class="doc-meta">
+        <input type="text" [(ngModel)]='doc.name' class='title' (change)='onTitleChange($event)'>
+        <div class="tags-input">
+            <i class="zmdi zmdi-tag"></i>
+        </div>
+    </div>
     <ckeditor [(ngModel)]="ckeditorContent" (change)="onBodyChange($event)" debounce="500">
     </ckeditor>
     <!--<textarea name="" id="" cols="30" rows="10" [(ngModel)]='content'></textarea>-->

@@ -113,7 +113,7 @@ export class ApiService {
 
 
   // Create a new Doucment
-  createNewDoc(docname = 'Untitled' ) {
+  createNewDoc(docname = 'Untitled document' ) {
     if (!docname) {
       return;
     }

@@ -33,12 +33,14 @@ export class SideBarComponent implements OnInit {
   }
 
   onFileCreated(doc: any) {
+    this.docService.addDoc(doc);
     this.docs.unshift(doc);
   }
 
   ngOnInit() {
     this.api.getAuth().then((isSignedIn) => {
       this.isRequesting = false;
+      this.docs = this.docService.docs;
     });
   }
 

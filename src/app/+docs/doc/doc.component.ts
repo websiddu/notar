@@ -82,7 +82,7 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
 
   initializeModel(model) {
     var map = model.createMap({
-      title: '',
+      title: 'Untitled document',
       body: '',
       tags: ''
     });

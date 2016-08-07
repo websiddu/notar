@@ -100,7 +100,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 .cke_inner {
     display: block;
     -webkit-touch-callout: none;
-    background: #fff;
+    background: #f8f8f8;
     padding: 0
 }
 
@@ -1459,8 +1459,9 @@ legend.cke_voice_label {
 }
 
 .cke_chrome {
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    background: #f8f8f8;
 }
 
 .cke_toolgroup:hover,

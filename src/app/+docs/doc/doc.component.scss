@@ -1,28 +1,37 @@
 .main {
-  width: 72%;
-  overflow-y: auto;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  position: fixed;
+    width: 72%;
+    overflow-y: auto;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    position: fixed;
 }
 
-
 .frame {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.doc-meta {
+    background: #fff;
+    display: flex;
 }
 
 .title {
-  height: 42px;
-  border: 0;
-  border-radius: 0;
-  &:focus {
-    outline: none;
-    box-shadow: none;
-  }
+    height: 42px;
+    border: 0;
+    border-radius: 0;
+    width: 50%;
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
 }
 
+.tags-input {
+    height: 42px;
+    line-height: 42px;
+}

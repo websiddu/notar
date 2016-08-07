@@ -21,6 +21,10 @@ export class DocService {
 
   }
 
+  addDoc(doc: any) {
+    this.docs.unshift(doc);
+  }
+
   setDocs(data: any) {
     this.docs = data;
   }
