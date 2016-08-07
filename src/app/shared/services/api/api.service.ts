@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Config } from '../config.service';
 
@@ -34,6 +35,16 @@ export class ApiService {
           'size,spaces,starred,thumbnailLink,trashed,version,viewedByMeTime,' +
           'viewersCanCopyContent,webContentLink,webViewLink,writersCanShare'
       }
+    });
+  }
+
+
+  getDocWithObserver(id: string) {
+    return  Observable.create( (observer) => {
+      this.getDoc(id).then(function(doc){
+        observer.next(doc);
+        observer.complete();
+      });
     });
   }
 

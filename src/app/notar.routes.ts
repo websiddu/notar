@@ -9,7 +9,10 @@ import { TagsBarComponent } from './+docs/tags-bar/tags-bar.component';
 import { AuthService } from './shared/services/auth/auth.service';
 import { AuthGuard } from './shared/services/auth/auth.guard.service';
 
+// import { DocResolver } from './shared/services/api/doc.resolver';
+
 import { LoginComponent } from './+login/login.component';
+
 
 // import { CanDeactivateGuard } from './interfaces';
 
@@ -32,6 +35,9 @@ export const routes: RouterConfig = [
       {
         path: ':id',
         component: DocComponent
+        // resolve: {
+        //   team: DocResolver
+        // }
       },
       {
         path: ''

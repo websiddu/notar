@@ -3,11 +3,7 @@ import {DomSanitizationService} from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
-import { REACTIVE_FORM_DIRECTIVES,
-    FormGroup,
-    FormControl,
-    FormBuilder,
-    Validators } from '@angular/forms';
+import { REACTIVE_FORM_DIRECTIVES, FormGroup} from '@angular/forms';
 
 import { CKEditor } from 'ng2-ckeditor';
 
@@ -40,10 +36,12 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
 
   };
 
-
   private sub: any;
   public doc: any = {
-    url: ''
+    url: '',
+    info: {
+      name: ''
+    }
   };
   content: string;
 
@@ -52,40 +50,8 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
     private router: Router,
     private api: ApiService,
     private auth: AuthService,
-    private formBuilder: FormBuilder,
     private ele: ElementRef) {
 
-  }
-
-  // Util funcitons
-  getSafeUrl(url: string) {
-    return this.sanitationService.bypassSecurityTrustResourceUrl(url);
-  }
-
-
-  ngAfterViewInit() {
-    if (!this.doc.id) {
-      return;
-    }
-
-    this.api.getDoc(this.doc.id).then( (res) => {
-      this.doc.info = res.result;
-      this.title = this.doc.info.name;
-    });
-    console.log(this.currentDoc);
-  }
-
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
-
-  onSubmitModelForm(form) {
-    console.log(form);
-  }
-
-  onSubmitTemplateForm(form) {
-    console.log(form);
   }
 
   onChange(content) {
@@ -93,20 +59,8 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onFileLoaded(doc) {
-    console.log("Onfile loaded")
     this.collaborativeString = doc.getModel().getRoot().get('body');
-    console.log(this.collaborativeString.getText());
     this.ckeditorContent = this.collaborativeString.getText();
-
-    doc.getModel().getRoot().get('body').addEventListener(
-      gapi.drive.realtime.EventType.VALUE_CHANGED,
-      (event) => {
-        console.log('value changd..');
-        console.log(event);
-      });
-
-
-    // gapi.drive.realtime.databinding.bindString(collaborativeString, this.ele.nativeElement.querySelector('textarea'));
   }
 
   initializeModel(model) {
@@ -114,35 +68,47 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
     model.getRoot().set('body', str);
   }
 
-  onError(id) {
-    console.log("On error....");
-    console.log(id);
-    this.api.getAuth().then((e) => {
-      console.log(e);
-      this.initRealTime(id);
-    });
-  }
-
   initRealTime(id) {
     let that = this;
     gapi.drive.realtime.load(id, (doc) => {
       that.onFileLoaded(doc);
-    }, that.initializeModel, () => {that.onError(id); } );
+    }, that.initializeModel, () => { that.onError(id); } );
   }
 
-  ngOnInit() {
-    this.modelForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      content: ['', Validators.required],
+  onError(id) {
+    this.api.getAuth().then((e) => {
+      this.initRealTime(id);
     });
+  }
 
+  // Component life hooks
+  //
+  ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
         let url = id != 1 ? `https://docs.google.com/document/d/${id}/edit?usp=drivesdk` : '';
         this.doc.id = id;
         this.doc.url = this.sanitationService.bypassSecurityTrustResourceUrl(url);
         this.initRealTime(id);
-
      });
   }
+
+  ngAfterViewInit() {
+    if (!this.doc.id) { return; }
+    this.api.getDoc(this.doc.id).then( (res) => {
+      this.doc.info = res.result;
+    });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
+  // Util funcitons
+  //
+  getSafeUrl(url: string) {
+    return this.sanitationService.bypassSecurityTrustResourceUrl(url);
+  }
+
+
 }
