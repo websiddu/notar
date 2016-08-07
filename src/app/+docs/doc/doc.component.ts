@@ -60,22 +60,33 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
-  onTitleChange() {
+  onTitleChange(e) {
     this.docService.setDoc(this.doc);
+    this.collaborativeString.set('title', this.doc.name);
+    this.api.patchDoc(this.doc.id, {
+      name: this.doc.name
+    }).then((err) =>  {
+      console.log(err);
+    });
   }
 
   onBodyChange(content) {
-    this.collaborativeString.setText(content);
+    this.collaborativeString.set('body', content);
   }
 
   onFileLoaded(doc) {
-    this.collaborativeString = doc.getModel().getRoot().get('body');
-    this.ckeditorContent = this.collaborativeString.getText();
+    this.collaborativeString = doc.getModel().getRoot().get('doc');
+    this.ckeditorContent = this.collaborativeString.get('body');
+    this.doc.name = this.collaborativeString.get('title');
   }
 
   initializeModel(model) {
-    var str = model.createString();
-    model.getRoot().set('body', str);
+    var map = model.createMap({
+      title: '',
+      body: '',
+      tags: ''
+    });
+    model.getRoot().set('doc', map);
   }
 
   initRealTime(id) {

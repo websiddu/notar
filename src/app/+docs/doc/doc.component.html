@@ -1,6 +1,6 @@
 <main class="main">
-    <span *ngIf='docService.currentDoc'>
-      <input type="text" [(ngModel)]='docService.currentDoc.name' class='title' (keyup)='onTitleChange($event)'>
+    <span *ngIf='doc.name'>
+      <input type="text" [(ngModel)]='doc.name' class='title' (change)='onTitleChange($event)'>
     </span>
     <ckeditor [(ngModel)]="ckeditorContent" (change)="onBodyChange($event)" debounce="500">
     </ckeditor>

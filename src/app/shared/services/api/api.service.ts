@@ -39,6 +39,15 @@ export class ApiService {
   }
 
 
+  patchDoc(id: string, body: any) {
+    return gapi.client.request({
+      'path': `/drive/v3/files/${id}`,
+      'method': 'PATCH',
+      'body': body
+    });
+  }
+
+
   getDocWithObserver(id: string) {
     return  Observable.create( (observer) => {
       this.getDoc(id).then(function(doc){
