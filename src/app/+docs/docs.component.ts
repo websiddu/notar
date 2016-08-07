@@ -6,6 +6,7 @@ import { AngularFire } from 'angularfire2';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { ApiService } from '../shared/services/api/api.service';
+import { DocService } from '../shared/services/doc/doc.service';
 import { AuthService } from '../shared/services/auth/auth.service';
 
 import { OnboardingComponent } from './shared/onboarding/onboarding.component';
@@ -21,7 +22,7 @@ declare var firebase;
   selector: 'app-docs',
   templateUrl: 'docs.component.html',
   styleUrls: ['docs.component.css'],
-  providers: [ApiService, AuthService],
+  providers: [ApiService, AuthService, DocService],
   directives: [ROUTER_DIRECTIVES, OnboardingComponent, SideBarComponent, TagsBarComponent]
 })
 
@@ -35,14 +36,17 @@ export class DocsComponent implements OnInit, OnDestroy {
     private router: Router,
     private af: AngularFire,
     private auth: AuthService,
+    private docService: DocService,
     private api: ApiService) {
 
   }
 
   loadFiles() {
     this.api.getFiles().then((data: any) => {
-      this.docs = data.files;
-      this.currentDoc = data.files[0];
+      // this.docs = data.files;
+      // this.currentDoc = data.files[0];
+      this.docService.setDocs(data.files);
+      this.docService.setDoc(data.files[0]);
     },
     (error) => {
       this.auth.handleAuthError(error);
@@ -51,6 +55,7 @@ export class DocsComponent implements OnInit, OnDestroy {
       console.log('Get all Items complete');
     });
   }
+
 
   ngOnDestroy() {
   }

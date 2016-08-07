@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, Input, ElementRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit,
+    Input, ElementRef} from '@angular/core';
 import {DomSanitizationService} from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ROUTER_DIRECTIVES } from '@angular/router';
@@ -7,9 +8,13 @@ import { REACTIVE_FORM_DIRECTIVES, FormGroup} from '@angular/forms';
 
 import { CKEditor } from 'ng2-ckeditor';
 
+import { SideBarComponent } from '../side-bar/side-bar.component';
+import { TagsBarComponent } from '../tags-bar/tags-bar.component';
+
 
 import { ApiService } from '../../shared/services/api/api.service';
 import { AuthService } from '../../shared/services/auth/auth.service';
+import { DocService } from '../../shared/services/doc/doc.service';
 
 declare var utils;
 declare var gapi;
@@ -19,13 +24,15 @@ declare var gapi;
   selector: 'app-doc',
   templateUrl: 'doc.component.html',
   styleUrls: ['doc.component.css'],
-  directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, CKEditor],
+  directives: [ROUTER_DIRECTIVES,
+    REACTIVE_FORM_DIRECTIVES, CKEditor, SideBarComponent, TagsBarComponent],
   providers: [ApiService]
 })
 
 export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() currentDoc: any;
+
 
   modelForm: FormGroup;
   ckeditorContent: string = '';
@@ -39,9 +46,7 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
   private sub: any;
   public doc: any = {
     url: '',
-    info: {
-      name: ''
-    }
+    name: ''
   };
   content: string;
 
@@ -49,12 +54,17 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private api: ApiService,
+    private docService: DocService,
     private auth: AuthService,
     private ele: ElementRef) {
 
   }
 
-  onChange(content) {
+  onTitleChange() {
+    this.docService.setDoc(this.doc);
+  }
+
+  onBodyChange(content) {
     this.collaborativeString.setText(content);
   }
 
@@ -84,19 +94,21 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
   // Component life hooks
   //
   ngOnInit() {
+
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
         let url = id != 1 ? `https://docs.google.com/document/d/${id}/edit?usp=drivesdk` : '';
         this.doc.id = id;
         this.doc.url = this.sanitationService.bypassSecurityTrustResourceUrl(url);
         this.initRealTime(id);
+        this.ngAfterViewInit();
      });
   }
 
   ngAfterViewInit() {
-    if (!this.doc.id) { return; }
     this.api.getDoc(this.doc.id).then( (res) => {
-      this.doc.info = res.result;
+      this.doc = res.result;
+      this.docService.setDoc(res.result);
     });
   }
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { ApiService } from '../../shared/services/api/api.service';
 import { AuthService } from '../../shared/services/auth/auth.service';
+import { DocService } from '../../shared/services/doc/doc.service';
 
 import { DocListComponent } from '../../shared/doc/doc-list/doc-list.component';
 import { ProfileBarComponent } from '../shared/profile-bar/profile-bar.component';
@@ -26,6 +27,7 @@ export class SideBarComponent implements OnInit {
 
   constructor(private api: ApiService,
   private auth: AuthService,
+  private docService: DocService,
   private router: Router) {
 
   }

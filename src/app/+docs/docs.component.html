@@ -3,5 +3,6 @@
 <!--<router-outlet name='tagsbar'></router-outlet>-->
 <!--<router-outlet name='sidebar'></router-outlet>-->
 <app-tags-bar></app-tags-bar>
-<app-side-bar [docs]='docs' [currentDoc]='currentDoc'></app-side-bar>
-<router-outlet></router-outlet>
+<app-side-bar></app-side-bar>
+<!--<app-doc></app-doc>-->
+<router-outlet (onDocChanged)="onDocChanged($event)"></router-outlet>

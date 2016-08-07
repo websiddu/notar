@@ -3,6 +3,7 @@
     <div class="search">
         <input type="text">
     </div>
+
     <spinner [isRunning]="isRequesting"></spinner>
-    <app-doc-list [docs]='docs' [currentDoc]='currentDoc'>Loading...</app-doc-list>
+    <app-doc-list [docs]='docService.docs'>Loading...</app-doc-list>
 </aside>
