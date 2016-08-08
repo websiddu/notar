@@ -5,8 +5,9 @@
 const map: any = {
   'firebase': 'vendor/firebase/firebase.js',
   'angularfire2': 'vendor/angularfire2',
-  // 'ckeditor': 'vendor/ckeditor/ckeditor.js'
   'ng2-ckeditor': 'vendor/ng2-ckeditor/lib/CKEditor.js',
+  '@jQuery': 'vendor/jquery/dist',
+  'ng2-select2': 'vendor/ng2-select2/dist/ng2-select2.js'
 };
 
 /** User packages configuration. */
@@ -16,6 +17,14 @@ const packages: any = {
     main: 'angularfire2.js'
   },
   'ng2-ckeditor': {
+    format: 'cjs'
+  },
+  '@jQuery': {
+      main: 'jquery.min',
+      format: 'global',
+      defaultExtension: 'js'
+  },
+  'ng2-select2': {
     format: 'cjs'
   }
 };

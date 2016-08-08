@@ -7,6 +7,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import { REACTIVE_FORM_DIRECTIVES, FormGroup} from '@angular/forms';
 
 import { CKEditor } from 'ng2-ckeditor';
+import { SELECT2_DIRECTIVES } from 'ng2-select2';
 
 import { SideBarComponent } from '../side-bar/side-bar.component';
 import { TagsBarComponent } from '../tags-bar/tags-bar.component';
@@ -25,7 +26,9 @@ declare var gapi;
   templateUrl: 'doc.component.html',
   styleUrls: ['doc.component.css'],
   directives: [ROUTER_DIRECTIVES,
-    REACTIVE_FORM_DIRECTIVES, CKEditor, SideBarComponent, TagsBarComponent],
+    REACTIVE_FORM_DIRECTIVES,
+    SELECT2_DIRECTIVES,
+    CKEditor, SideBarComponent, TagsBarComponent],
   providers: [ApiService]
 })
 

@@ -3,6 +3,7 @@
         <input type="text" [(ngModel)]='doc.name' class='title' (change)='onTitleChange($event)'>
         <div class="tags-input">
             <i class="zmdi zmdi-tag"></i>
+
         </div>
     </div>
     <ckeditor [(ngModel)]="ckeditorContent" (change)="onBodyChange($event)" debounce="500">
