@@ -1,4 +1,4 @@
-import { provideRouter, RouterConfig } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 
 import { DocsComponent } from './+docs/docs.component';
@@ -16,7 +16,7 @@ import { LoginComponent } from './+login/login.component';
 
 // import { CanDeactivateGuard } from './interfaces';
 
-export const routes: RouterConfig = [
+export const routes: Routes = [
   {
     path: '',
     // pathMatch: 'prefix', //default
@@ -47,8 +47,10 @@ export const routes: RouterConfig = [
   }
 ];
 
-export const APP_ROUTER_PROVIDERS = [
-  provideRouter(routes, {enableTracing: true}),
-  AuthGuard,
-  AuthService
-];
+// export const APP_ROUTER_PROVIDERS = [
+//   provideRouter(routes, {enableTracing: true}),
+//   AuthGuard,
+//   AuthService
+// ];
+
+export const APP_ROUTER_PROVIDERS = RouterModule.forRoot(routes);
