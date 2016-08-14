@@ -20,7 +20,8 @@
     display: flex;
 }
 
-.title {
+.title,
+.tags {
     height: 42px;
     border: 0;
     border-radius: 0;
@@ -34,4 +35,5 @@
 .tags-input {
     height: 42px;
     line-height: 42px;
+    font-size: 13px;
 }

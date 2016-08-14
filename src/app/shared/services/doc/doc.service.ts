@@ -11,11 +11,11 @@ export class DocService {
 
   docs: any = [];
 
-  setDoc(data: any) {
-    this.currentDoc = data;
+  setDoc(doc: any) {
+    this.currentDoc = doc;
     for (let i in this.docs) {
-      if (this.docs[i].id == data.id) {
-        this.docs[i] = _.cloneDeep(data);
+      if (this.docs[i].id == doc.id) {
+        this.docs[i] = _.cloneDeep(doc);
       }
     };
 

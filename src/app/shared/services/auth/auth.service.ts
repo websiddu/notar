@@ -73,7 +73,7 @@ export class AuthService {
   }
 
   handleAuthSuccess() {
-    this.router.navigate(['/docs/1']);
+    this.router.navigate(['/docs']);
   }
 
   handleAuthResult(authResult) {
@@ -92,8 +92,6 @@ export class AuthService {
 
         firebase.auth().signInWithCredential(credential)
         .then( (user) => {
-          // Create the user object for the first time
-          // firebase.auth().currentUser.uid
           firebase.database().ref('users/' + user.uid).set({
             foldername: '',
             displayName: user.displayName,

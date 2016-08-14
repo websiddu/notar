@@ -1,16 +1,19 @@
+html,
+body {
+    text-rendering: optimizeLegibility;
+}
+
 .cke_contents {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 83px;
-  height: auto !important;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 83px;
+    height: auto !important;
 }
 
 .cke_reset.cke_contents {
-  position: absolute;
+    position: absolute;
 }
 
-.cke_button_on {
-
-}
+.cke_button_on {}

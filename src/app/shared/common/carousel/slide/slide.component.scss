@@ -1,6 +1,92 @@
 .slide {
-  height: 400px;
-  width: 100%;
-  background: red;
-  position: absolute;
+    border-radius: 16px;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.slide-imagery {
+    -webkit-border-radius: 16px 16px 0 0;
+    border-radius: 16px 16px 0 0;
+    height: 282px;
+    position: relative;
+    width: 100%;
+}
+
+.slide-info {
+    bottom: 0;
+    -webkit-border-radius: 0 0 16px 16px;
+    border-radius: 0 0 16px 16px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-clip: border-box;
+    color: #fff;
+    height: 206px;
+    padding: 32px 80px;
+    text-align: center;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    padding-top: 60px;
+}
+
+.slide-info-heading {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    position: relative;
+    z-index: 2;
+}
+
+.slide-info-description {
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: normal;
+    z-index: 2;
+    position: relative;
+    -webkit-transition-delay: .4s;
+    transition-delay: .4s;
+}
+
+.hippo-logo {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    -webkit-transition: all .5s cubic-bezier(0, 0, 0.2, 1) .2s;
+    transition: all .5s cubic-bezier(0, 0, 0.2, 1) .2s;
+    background-image: url(https://www.gstatic.com/social/photosui/images/oob/logo_photos_color_2x_web_150dp.png);
+    position: absolute;
+    left: 50%;
+    background-image: url(//ssl.gstatic.com/social/photosui/images/oob/photos_icon.png);
+    -webkit-background-size: 150px 150px;
+    background-size: 150px 150px;
+    height: 150px;
+    width: 150px;
+    margin: 50px 0 0 -75px;
+    -webkit-transform: scale3d(0.8, 0.8, 0.8);
+    transform: scale3d(0.8, 0.8, 0.8);
+}
+
+.hippo-heading {
+    -webkit-font-smoothing: antialiased;
+    color: #000;
+    font-family: 'Product Sans', Arial, Helvetica, sans-serif;
+    font-size: 47.8px;
+    font-weight: normal;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    text-rendering: optimizeLegibility;
+    top: 70%;
+    -webkit-transform: scale3d(0.8, 0.8, 0.8);
+    transform: scale3d(0.8, 0.8, 0.8);
+    width: 100%;
+    line-height: 120%;
+    opacity: .54;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    -webkit-transition: all .5s cubic-bezier(0, 0, 0.2, 1) .35s;
+    transition: all .5s cubic-bezier(0, 0, 0.2, 1) .35s;
 }

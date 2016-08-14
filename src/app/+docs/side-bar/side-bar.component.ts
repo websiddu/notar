@@ -36,6 +36,7 @@ export class SideBarComponent implements OnInit {
   onFileCreated(doc: any) {
     this.docService.addDoc(doc);
     this.docs.unshift(doc);
+    this.currentDoc = this.docService.currentDoc;
   }
 
   ngOnInit() {

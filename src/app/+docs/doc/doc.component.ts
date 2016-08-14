@@ -7,7 +7,6 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import { REACTIVE_FORM_DIRECTIVES, FormGroup} from '@angular/forms';
 
 import { CKEditor } from 'ng2-ckeditor';
-// import { SELECT2_DIRECTIVES } from 'ng2-select2';
 
 import { SideBarComponent } from '../side-bar/side-bar.component';
 import { TagsBarComponent } from '../tags-bar/tags-bar.component';
@@ -36,10 +35,10 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() currentDoc: any;
 
-
   modelForm: FormGroup;
   ckeditorContent: string = '';
   title: string = '';
+  tags: string = '';
 
   collaborativeString: any;
   ckeditorConfig: any = {
@@ -73,14 +72,20 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
+  onTagChange(e) {
+    this.collaborativeString.set('tags', this.doc.tags);
+  }
+
   onBodyChange(content) {
     this.collaborativeString.set('body', content);
   }
 
   onFileLoaded(doc) {
     this.collaborativeString = doc.getModel().getRoot().get('doc');
+
     this.ckeditorContent = this.collaborativeString.get('body');
     this.doc.name = this.collaborativeString.get('title');
+    this.doc.tags = this.collaborativeString.get('tags');
   }
 
   initializeModel(model) {
@@ -97,12 +102,11 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
     gapi.drive.realtime.load(id, (doc) => {
       that.onFileLoaded(doc);
     }, that.initializeModel, (e) => {
-      if(e.isFatal) {
-        console.log("Redirect to the login...");
+      if (e.isFatal) {
+        console.log('Redirect to the login...');
       } else {
         that.onError(id);
       }
-
     });
   }
 

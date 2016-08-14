@@ -1,10 +1,11 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
 
 @Component({
   moduleId: module.id,
   selector: 'slide',
   templateUrl: 'slide.component.html',
-  styleUrls: ['slide.component.css']
+  styleUrls: ['slide.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SlideComponent implements OnInit {
 

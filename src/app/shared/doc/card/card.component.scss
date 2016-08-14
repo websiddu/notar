@@ -1,21 +1,18 @@
 .card {
-  // padding: 1rem;
-  // background: #FAFAFA;
-  // box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.12), 0px 2px 2px 0px rgba(0,0,0,0.24);
-  // border-radius: 2px;
-  padding: 12px 20px;
-  background: #fff;
-  border-bottom: solid 1px #eee;
-  cursor: pointer;
-  h2 {
-    font-weight: normal;
-    color: #43434B;
-    font-size: 0.8rem;
-  }
-  &.active {
-    background: #3E82F7;
+    padding: 12px 20px;
+    background: #fff;
+    border-bottom: solid 1px #eee;
+    cursor: pointer;
     h2 {
-      color: #fff;
+        font-weight: normal;
+        color: #43434B;
+        font-size: 0.9rem;
+        font-weight: 300;
     }
-  }
+    &.active {
+        background: #3E82F7;
+        h2 {
+            color: #fff;
+        }
+    }
 }

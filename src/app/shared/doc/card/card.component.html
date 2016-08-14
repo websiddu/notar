@@ -1,8 +1,8 @@
-<div class="card" [ngClass]="{active: currentDoc && currentDoc.id == doc.id}">
+<div class="card" [ngClass]="{active: docService.currentDoc && docService.currentDoc.id == doc.id}">
     <div class="card-header">
     </div>
     <div class="card-body">
-        <time>{{doc.modifiedAt}}</time>
+        <time>{{doc.modifiedByMeTime}}</time>
         <h2>{{doc.name}}</h2>
     </div>
     <div class="card-footer">
