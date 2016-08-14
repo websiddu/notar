@@ -18,12 +18,20 @@
 .doc-meta {
     background: #fff;
     display: flex;
+    height: 80px;
+    align-items: flex-end;
+}
+
+.title {
+    font-family: "Slabo 27px", Georgia, Times, "Times New Roman", serif;
+    font-size: 1.3rem;
+    padding: 0 0 0 35px;
 }
 
 .title,
 .tags {
-    height: 42px;
     border: 0;
+    height: 50px;
     border-radius: 0;
     width: 50%;
     &:focus {
@@ -33,7 +41,6 @@
 }
 
 .tags-input {
-    height: 42px;
     line-height: 42px;
     font-size: 13px;
 }

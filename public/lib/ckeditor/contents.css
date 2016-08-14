@@ -6,16 +6,17 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 body {
     /* Font */
     font-family: 'Roboto', sans-serif, Arial, Verdana, "Trebuchet MS";
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 300;
     /* Text color */
     color: #333;
     /* Remove the background color to make it transparent */
     background-color: #fff;
-    margin: 20px;
+    margin: 30px 40px;
 }
 
 .cke_editable {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.6;
     /* Fix for missing scrollbars with RTL texts. (#10488) */
     word-wrap: break-word;

@@ -18,6 +18,7 @@ import { DocService } from '../../shared/services/doc/doc.service';
 
 declare var utils;
 declare var gapi;
+declare var _;
 
 @Component({
   moduleId: module.id,
@@ -37,8 +38,6 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
 
   modelForm: FormGroup;
   ckeditorContent: string = '';
-  title: string = '';
-  tags: string = '';
 
   collaborativeString: any;
   ckeditorConfig: any = {
@@ -47,8 +46,8 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private sub: any;
   public doc: any = {
-    url: '',
-    name: ''
+    name: '',
+    tags: ''
   };
   content: string;
 
@@ -77,15 +76,23 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onBodyChange(content) {
-    this.collaborativeString.set('body', content);
+    if (this.doc.body != content) {
+      console.log("Body is changed...");
+      this.collaborativeString.set('body', content);
+    }
   }
 
   onFileLoaded(doc) {
+
     this.collaborativeString = doc.getModel().getRoot().get('doc');
 
     this.ckeditorContent = this.collaborativeString.get('body');
+    this.doc.body = this.collaborativeString.get('body');
     this.doc.name = this.collaborativeString.get('title');
     this.doc.tags = this.collaborativeString.get('tags');
+
+    this.getFullDoc();
+    // this.docService.setDoc(this.doc);
   }
 
   initializeModel(model) {
@@ -116,25 +123,25 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
+  getFullDoc() {
+    this.api.getDoc(this.doc.id).then( (res) => {
+      this.doc = _.merge(this.doc, res.result);
+      this.docService.setDoc(this.doc);
+    });
+  }
+
   // Component life hooks
   //
   ngOnInit() {
-
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
-        let url = id != 1 ? `https://docs.google.com/document/d/${id}/edit?usp=drivesdk` : '';
         this.doc.id = id;
-        this.doc.url = this.sanitationService.bypassSecurityTrustResourceUrl(url);
         this.initRealTime(id);
-        this.ngAfterViewInit();
      });
   }
 
   ngAfterViewInit() {
-    this.api.getDoc(this.doc.id).then( (res) => {
-      this.doc = res.result;
-      this.docService.setDoc(res.result);
-    });
+
   }
 
   ngOnDestroy() {

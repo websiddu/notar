@@ -16,7 +16,8 @@ module.exports = function(defaults) {
             'angularfire2/**/*.js',
             'ng2-ckeditor/lib/*.+(js|js.map)',
             'jquery/**/*.js',
-            'ng2-select2/**/*.js'
+            'ng2-select2/**/*.js',
+            'moment/moment.js'
         ],
         sassCompiler: {
             "cacheExclude": [/\/_[^\/]+$/]

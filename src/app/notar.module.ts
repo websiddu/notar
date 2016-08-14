@@ -17,6 +17,7 @@ import { AuthService } from './shared/services/auth/auth.service';
 import { ApiService } from './shared/services/api/api.service';
 import { DocService } from './shared/services/doc/doc.service';
 
+enableProdMode();
 
 let firebaseConfig = {
     apiKey: 'AIzaSyCNuE4FTljf5fa4mPOowxT2vmLae6XHyRo',

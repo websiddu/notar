@@ -3,7 +3,9 @@ import { NgClass } from '@angular/common';
 
 import { DocService } from '../../services/doc/doc.service';
 
-import { Document } from '../../../models/doc.model';
+// import { Document } from '../../../models/doc.model';
+
+import * as moment from 'moment';
 
 @Component({
   moduleId: module.id,
@@ -14,10 +16,14 @@ import { Document } from '../../../models/doc.model';
 })
 export class CardComponent implements OnInit {
 
-  @Input() doc: Document;
+  @Input() doc: any;
   @Input() currentDoc: any;
 
   constructor(private docService: DocService) {
+  }
+
+  timeago(time) {
+    return moment(time).fromNow();
   }
 
   ngOnInit() {

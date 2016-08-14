@@ -1,18 +1,37 @@
 .card {
-    padding: 12px 20px;
+    padding: 20px 20px;
     background: #fff;
-    border-bottom: solid 1px #eee;
+    border-bottom: solid 1px #f8f8f8;
     cursor: pointer;
     h2 {
-        font-weight: normal;
         color: #43434B;
         font-size: 0.9rem;
         font-weight: 300;
+        // font-family: "Slabo 27px", Georgia, Times, "Times New Roman", serif;
     }
     &.active {
         background: #3E82F7;
         h2 {
             color: #fff;
         }
+        time {
+            color: #eee;
+        }
+    }
+    &:hover {
+        background: #f9f9f9;
+        &.active {
+            background: #3E82F7;
+        }
+    }
+}
+
+.card-body {
+    time {
+        font-size: 0.7rem;
+        line-height: 1;
+        margin: 0 0 10px;
+        display: block;
+        color: rgba(0, 0, 0, 0.4);
     }
 }

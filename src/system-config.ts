@@ -6,6 +6,7 @@ const map: any = {
   'firebase': 'vendor/firebase/firebase.js',
   'angularfire2': 'vendor/angularfire2',
   'ng2-ckeditor': 'vendor/ng2-ckeditor/lib/CKEditor.js',
+  'moment': 'vendor/moment/moment.js',
   '@jQuery': 'vendor/jquery/dist',
   'ng2-select2': 'vendor/ng2-select2/dist/ng2-select2.js'
 };
@@ -25,6 +26,9 @@ const packages: any = {
       defaultExtension: 'js'
   },
   'ng2-select2': {
+    format: 'cjs'
+  },
+  'moment': {
     format: 'cjs'
   }
 };
