@@ -62,7 +62,7 @@ export class ApiService {
     let filesObserver = new Promise((resolve, reject) => {
       gapi.client.load('drive', 'v3', () => {
         var request = gapi.client.drive.files.list({
-          'pageSize': 20,
+          'pageSize': 10,
           'fields': 'nextPageToken, files(id, name, webViewLink, createdTime, modifiedByMeTime)',
           'q': `'${localStorage['folderId']}' in parents and mimeType contains
           'application/vnd.google-apps.drive-sdk'`
@@ -93,6 +93,9 @@ export class ApiService {
     return authObserver;
   }
 
+  updateTags(tags, uid) {
+    firebase.database().ref('users/' + uid + '/tags').set(tags.split(','));
+  }
 
   // Create a folder based on the given users name
   //

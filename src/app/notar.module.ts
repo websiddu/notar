@@ -16,6 +16,7 @@ import { AuthGuard } from './shared/services/auth/auth.guard.service';
 import { AuthService } from './shared/services/auth/auth.service';
 import { ApiService } from './shared/services/api/api.service';
 import { DocService } from './shared/services/doc/doc.service';
+import { UtilService } from './shared/services/util.service';
 
 enableProdMode();
 
@@ -40,7 +41,8 @@ let firebaseConfig = {
         AuthGuard,
         AuthService,
         ApiService,
-        DocService
+        DocService,
+        UtilService
     ],
     imports: [
         BrowserModule,

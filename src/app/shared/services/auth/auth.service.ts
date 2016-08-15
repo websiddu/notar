@@ -18,9 +18,10 @@ export class AuthService {
   currentUser: any;
   isSignedIn: boolean = false;
 
-  constructor(public router: Router,
-   private config: Config,
-   private af: AngularFire) {
+  constructor(
+    public router: Router,
+    private config: Config,
+    private af: AngularFire) {
 
   }
 

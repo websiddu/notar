@@ -73,11 +73,11 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onTagChange(e) {
     this.collaborativeString.set('tags', this.doc.tags);
+    this.api.updateTags(this.doc.tags, localStorage['uid']);
   }
 
   onBodyChange(content) {
     if (this.doc.body != content) {
-      console.log("Body is changed...");
       this.collaborativeString.set('body', content);
     }
   }

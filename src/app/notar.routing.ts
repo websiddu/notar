@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DocsComponent } from './+docs/docs.component';
 import { DocComponent } from './+docs/doc/doc.component';
+import { NotarAppComponent } from './notar.component';
 
 // import { AuthService } from './shared/services/auth/auth.service';
 import { AuthGuard } from './shared/services/auth/auth.guard.service';
@@ -10,8 +11,9 @@ import { LoginComponent } from './+login/login.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    component: NotarAppComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
