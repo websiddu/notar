@@ -109,8 +109,12 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
     gapi.drive.realtime.load(id, (doc) => {
       that.onFileLoaded(doc);
     }, that.initializeModel, (e) => {
+      console.log(e); 
+      if(e.type == 'token_refresh_required') {
+        this.auth.refreshToken().subscribe( (res) => {})
+      }
       if (e.isFatal) {
-        console.log('Redirect to the login...');
+        // TODO: Handle all the errors together
       } else {
         that.onError(id);
       }
@@ -136,7 +140,9 @@ export class DocComponent implements OnInit, OnDestroy, AfterViewInit {
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
         this.doc.id = id;
-        this.initRealTime(id);
+        this.auth.refreshToken().subscribe( (res) => {
+          this.initRealTime(id);
+        })
      });
   }
 

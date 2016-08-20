@@ -25,35 +25,80 @@ export class AuthService {
 
   }
 
+  refreshToken() {
+
+    return Observable.create( (observer) => {
+
+        gapi.auth.authorize(this.config.authProperties, (data) => {
+          console.log("Refresh token "); 
+          console.log(data); 
+
+          observer.next(true);
+          observer.complete();  
+
+        });
+    }); 
+
+     
+  }
 
   checkAuth() {
-    return  Observable.create( (observer) => {
-     gapi.load('auth2', () => {
-          this.auth2 = gapi.auth2.init(this.config.authProperties);
-          this.auth2.then(() => {
-            let currentUser = gapi.auth2.getAuthInstance().currentUser.get();
-            if (currentUser.isSignedIn()) {
-              this.isSignedIn = true;
-              this.currentUser = currentUser;
-              observer.next(true);
-            } else {
-              observer.next(false);
-              this.router.navigate(['/login']);
-            }
-            observer.complete();
-          }, () => {
-            console.log('Can not Login!');
-          });
-        });
+    let that = this; 
+    return Observable.create( (observer) => {
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        let token = user.getToken(); 
+        
+        gapi.auth.authorize(that.config.authProperties, () => {
+          that.checkAuth(); 
+        }); 
+
+        observer.next(true);
+      } else {
+        // this.signIn();
+        observer.next(false); 
+      }
+
+      observer.complete(); 
+    }); 
+
     });
   }
 
-
-
   doAuth() {
-    this.auth2.signIn().then((googleUser) => {
-      this.handleAuthResult(googleUser);
-    });
+    this.initAuth();
+  }
+
+  initAuth() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.router.navigate(['/docs']);
+      } else {
+        this.signIn(); 
+      }
+    }); 
+  }
+
+  signIn() {
+    if(!firebase.auth().currentUser) {
+      let provider = new firebase.auth.GoogleAuthProvider(); 
+      provider.addScope('https://www.googleapis.com/auth/drive');
+      firebase.auth().signInWithPopup(provider).then( (result) => {
+        firebase.database().ref('users/' + result.uid).set({
+          foldername: '',
+          displayName: result.displayName,
+          tags: {}
+        });
+      }).catch((error) => {
+        console.log(error); 
+        if(error.code == 'auth/account-exists-with-different-credential') {
+          console.log('You have already signed up with a different auth provider for that email...'); 
+        } else {
+          console.log(error); 
+        }
+      })
+    }
   }
 
   // Signout
@@ -75,60 +120,6 @@ export class AuthService {
 
   handleAuthSuccess() {
     this.router.navigate(['/docs']);
-  }
-
-  handleAuthResult(authResult) {
-
-    if (!authResult.isSignedIn()) {
-      return;
-    }
-
-    let that = this;
-
-    let unsubscribe = firebase.auth().onAuthStateChanged( (firebaseUser) => {
-      unsubscribe();
-      if (!this._isUserEqual(authResult, firebaseUser)) {
-        var credential = firebase.auth.GoogleAuthProvider.credential(
-          authResult.getAuthResponse().id_token);
-
-        firebase.auth().signInWithCredential(credential)
-        .then( (user) => {
-          firebase.database().ref('users/' + user.uid).set({
-            foldername: '',
-            displayName: user.displayName,
-            tags: {}
-          });
-
-          localStorage['uid'] = user.uid;
-
-          that.currentUser = authResult;
-          that.isSignedIn = true;
-          that.handleAuthSuccess();
-        }, () => {
-          // On rejct
-        })
-        .catch( (error) => {
-        });
-      } else {
-        console.log('User already signed-in Firebase.');
-      }
-
-    });
-
-  }
-
-  // Util functions
-  _isUserEqual(googleUser, firebaseUser) {
-    if (firebaseUser) {
-      var providerData = firebaseUser.providerData;
-      for (var i = 0; i < providerData.length; i++) {
-        if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
-            providerData[i].uid === googleUser.getBasicProfile().getId()) {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 
 }

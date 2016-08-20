@@ -37,9 +37,9 @@ export class ProfileBarComponent implements OnInit {
 
   ngOnInit() {
     this.auth.checkAuth().subscribe(() => {
-      let basicProfile = this.auth.currentUser.getBasicProfile();
-      this.currentUserName = basicProfile.getName();
-      this.currentUserImg = basicProfile.getImageUrl();
+      // let basicProfile = this.auth.currentUser.getBasicProfile();
+      // this.currentUserName = basicProfile.getName();
+      // this.currentUserImg = basicProfile.getImageUrl();
     });
   }
 

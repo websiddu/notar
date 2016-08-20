@@ -78,17 +78,19 @@ export class ApiService {
 
   getAuth() {
     let authObserver = new Promise((resolve, reject) => {
-      gapi.auth.authorize(this.config.authProperties, (authResult) => {
+      resolve(true);
 
-       if (authResult && !authResult.error) {
-          // Hide auth UI, then load client library.
-          resolve(true);
-        } else {
-          let authProperties = this.config.authProperties;
-          authProperties.immediate = false;
-          gapi.auth.authorize(authProperties);
-        }
-      });
+      // gapi.auth.authorize(this.config.authProperties, (authResult) => {
+
+      //  if (authResult && !authResult.error) {
+      //     // Hide auth UI, then load client library.
+      //     resolve(true);
+      //   } else {
+      //     let authProperties = this.config.authProperties;
+      //     authProperties.immediate = false;
+      //     gapi.auth.authorize(authProperties);
+      //   }
+      // });
     });
     return authObserver;
   }

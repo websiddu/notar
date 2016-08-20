@@ -39,7 +39,7 @@ export class NotarAppComponent implements OnInit {
   ngOnInit() {
     let params = this.utils.getParams();
     if (params['state'] && params['state']['action'] == 'create') {
-      this.api.createNewDoc('Hot and sexy...').then((res) => {
+      this.api.createNewDoc('Untitled document').then((res) => {
         let doc = JSON.parse(res.body);
         this.router.navigate([`/docs/${doc.id}`]);
       });

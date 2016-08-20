@@ -2,9 +2,7 @@ export class Config {
 
   clientId = '155734877039-ftadpu31p6i79iied572licad72ji4bt.apps.googleusercontent.com';
   scopes = [
-    'https://www.googleapis.com/auth/drive',
-    'https://www.googleapis.com/auth/drive.install',
-    'https://www.googleapis.com/auth/drive.file'
+    'https://www.googleapis.com/auth/drive'
   ];
   authProperties = {
     client_id: this.clientId,

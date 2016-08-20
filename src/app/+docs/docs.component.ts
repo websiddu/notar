@@ -42,6 +42,7 @@ export class DocsComponent implements OnInit, OnDestroy {
   }
 
   loadFiles() {
+    console.log("Loading files..."); 
     this.api.getFiles().then((data: any) => {
       // this.docs = data.files;
       // this.currentDoc = data.files[0];
@@ -61,17 +62,15 @@ export class DocsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    setTimeout( () => {
-      var userId = localStorage['uid'];
-      firebase.database().ref(`users/${userId}/folder`).once('value').then( (snapshot) => {
-        if (snapshot.val()) {
-          this.isFirstTime = false;
-          localStorage['folderId'] = snapshot.val().id;
-          this.loadFiles();
-        } else {
-          this.isFirstTime = true;
-        }
-      });
-    }, 100);
+    let uid = localStorage['uid'];
+    firebase.database().ref(`users/${uid}/folder`).once('value').then( (snapshot) => {
+      if (snapshot.val()) {
+        this.isFirstTime = false;
+        localStorage['folderId'] = snapshot.val().id;
+        this.loadFiles();
+      } else {
+        this.isFirstTime = true;
+      }
+    });
   }
 }
