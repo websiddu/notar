@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AngularFire } from 'angularfire2';
-
 
 import { ModalComponent } from '../../../shared/common/modal/modal.component';
 
@@ -24,7 +22,7 @@ export class OnboardingComponent implements OnInit {
   folderName: string;
   folderId: string;
 
-  constructor(private api: ApiService, private af: AngularFire) {}
+  constructor(private api: ApiService) {}
 
   onSubmit() {
     if (!this.folderName) {
@@ -32,11 +30,11 @@ export class OnboardingComponent implements OnInit {
     }
     this.api.createFolder(this.folderName).then( (response) => {
       this.folderId = response.result.id;
-      let uid = firebase.auth().currentUser.uid;
-      firebase.database().ref(`users/${uid}/folder`).set({
-          'id': this.folderId,
-          'name': this.folderName,
-        });
+      // let uid = firebase.auth().currentUser.uid;
+      // firebase.database().ref(`users/${uid}/folder`).set({
+      //     'id': this.folderId,
+      //     'name': this.folderName,
+      //   });
     });
   }
 

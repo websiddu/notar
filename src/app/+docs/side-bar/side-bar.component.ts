@@ -40,10 +40,7 @@ export class SideBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.api.getAuth().then((isSignedIn) => {
-      this.isRequesting = false;
-      this.docs = this.docService.docs;
-    });
+    this.docs = this.docService.docs;
   }
 
 }

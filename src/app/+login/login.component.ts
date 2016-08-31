@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth/auth.service';
@@ -19,7 +18,7 @@ export class LoginComponent implements OnInit {
   isSignedIn: boolean = false;
   currentUser: any;
 
-  constructor(public af: AngularFire, private auth: AuthService, public router: Router) {
+  constructor(private auth: AuthService, public router: Router) {
 
   }
 

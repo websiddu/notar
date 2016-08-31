@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import { AngularFire } from 'angularfire2';
+
 
 import { Config } from '../config.service';
 
@@ -20,106 +20,55 @@ export class AuthService {
 
   constructor(
     public router: Router,
-    private config: Config,
-    private af: AngularFire) {
+    private config: Config) {
 
   }
 
-  refreshToken() {
+updateSigninStatus(isSignedIn, that) {
+  if (isSignedIn) {
+    that.router.navigate(['/docs']);
+  } else {
+    that.router.navigate(['/login']);
+  }
+}
 
+refreshToken() {
+  return Observable.create( (observer) => {
+    gapi.auth.authorize(this.config.authProperties, (data) => {
+      observer.next(true);
+      observer.complete();
+    });
+  });
+}
+
+checkAuth() {
+    let that = this;
     return Observable.create( (observer) => {
 
-        gapi.auth.authorize(this.config.authProperties, (data) => {
-          console.log("Refresh token "); 
-          console.log(data); 
+      gapi.auth2.init(that.config.authProperties).then( () => {
+        that.auth2 = gapi.auth2.getAuthInstance();
 
-          observer.next(true);
-          observer.complete();  
+        if (this.auth2.isSignedIn.get() == true) {
+          that.router.navigate(['/docs']);
+        }
 
+        that.auth2.isSignedIn.listen( (isSignedIn) => {
+          that.updateSigninStatus(isSignedIn, that);
         });
-    }); 
-
-     
-  }
-
-  checkAuth() {
-    let that = this; 
-    return Observable.create( (observer) => {
-
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        let token = user.getToken(); 
-        
-        gapi.auth.authorize(that.config.authProperties, () => {
-          that.checkAuth(); 
-        }); 
-
         observer.next(true);
-      } else {
-        // this.signIn();
-        observer.next(false); 
-      }
-
-      observer.complete(); 
-    }); 
-
+      });
+      observer.complete();
     });
   }
 
   doAuth() {
-    this.initAuth();
-  }
-
-  initAuth() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.router.navigate(['/docs']);
-      } else {
-        this.signIn(); 
-      }
-    }); 
-  }
-
-  signIn() {
-    if(!firebase.auth().currentUser) {
-      let provider = new firebase.auth.GoogleAuthProvider(); 
-      provider.addScope('https://www.googleapis.com/auth/drive');
-      firebase.auth().signInWithPopup(provider).then( (result) => {
-        firebase.database().ref('users/' + result.uid).set({
-          foldername: '',
-          displayName: result.displayName,
-          tags: {}
-        });
-      }).catch((error) => {
-        console.log(error); 
-        if(error.code == 'auth/account-exists-with-different-credential') {
-          console.log('You have already signed up with a different auth provider for that email...'); 
-        } else {
-          console.log(error); 
-        }
-      })
-    }
+    this.auth2.signIn();
   }
 
   // Signout
   removeAuth() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-
-    this.currentUser = null;
-    this.isSignedIn = false;
-  }
-
-  handleAuthError(error) {
-    if (!gapi.auth2) {
-      this.router.navigate(['/login']);
-    }
-  }
-
-  handleAuthSuccess() {
-    this.router.navigate(['/docs']);
+    this.auth2.signOut();
+    this.router.navigate(['/login']);
   }
 
 }

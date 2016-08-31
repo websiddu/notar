@@ -64,8 +64,7 @@ export class ApiService {
         var request = gapi.client.drive.files.list({
           'pageSize': 10,
           'fields': 'nextPageToken, files(id, name, webViewLink, createdTime, modifiedByMeTime)',
-          'q': `'${localStorage['folderId']}' in parents and mimeType contains
-          'application/vnd.google-apps.drive-sdk'`
+          'q': `mimeType contains 'application/vnd.google-apps.drive-sdk'`
         });
         request.execute((resp) => {
           resolve(resp);
@@ -73,26 +72,6 @@ export class ApiService {
       });
     });
     return filesObserver;
-  }
-
-
-  getAuth() {
-    let authObserver = new Promise((resolve, reject) => {
-      resolve(true);
-
-      // gapi.auth.authorize(this.config.authProperties, (authResult) => {
-
-      //  if (authResult && !authResult.error) {
-      //     // Hide auth UI, then load client library.
-      //     resolve(true);
-      //   } else {
-      //     let authProperties = this.config.authProperties;
-      //     authProperties.immediate = false;
-      //     gapi.auth.authorize(authProperties);
-      //   }
-      // });
-    });
-    return authObserver;
   }
 
   updateTags(tags, uid) {

@@ -5,8 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { routing, routingProviders } from './notar.routing';
 
-import { AngularFireModule } from 'angularfire2';
-
 import { DocsComponent } from './+docs';
 import { DocComponent } from './+docs/doc';
 import { LoginComponent } from './+login';
@@ -49,9 +47,9 @@ let firebaseConfig = {
         FormsModule,
         HttpModule,
         routing,
-        AngularFireModule.initializeApp(firebaseConfig)
+        // AngularFireModule.initializeApp(firebaseConfig)
     ],
-    bootstrap:    [NotarAppComponent],
+    bootstrap: [NotarAppComponent],
 })
 export class NotarAppModule {
 
